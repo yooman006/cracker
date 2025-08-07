@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingCart, Star, Plus, Minus, Sparkles, Home, ArrowUp, Phone, Mail, Menu, X, Truck, Leaf } from 'lucide-react';
+import { ShoppingCart, Star, Plus, Minus, Sparkles, Home, ArrowUp, Phone, Mail, Menu, X, Truck, Leaf, Tag } from 'lucide-react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { assets } from '../assets/assets';
@@ -5116,7 +5116,6 @@ const CrackerShop = () => {
 
 
   ];
-
   const categories = [
     { id: 'all', name: 'All' },
     { id: 'giftbox', name: 'Giftbox' },
@@ -5242,6 +5241,16 @@ const CrackerShop = () => {
     };
   }, []);
 
+  const handleBrandSelect = (brandId) => {
+    setSelectedBrand(brandId);
+    setActiveCategory('all'); // Reset category to 'all'
+
+    // Use setTimeout to allow the state to update before scrolling
+    setTimeout(() => {
+      scrollToProducts();
+    }, 50);
+  };
+
   const getAvailableCategories = () => {
     if (!selectedBrand) return [];
 
@@ -5318,16 +5327,21 @@ const CrackerShop = () => {
     : [];
 
   const scrollToProducts = () => {
-    const productsSection = document.getElementById('products');
-    if (productsSection) {
-      const headerHeight = document.querySelector('header')?.offsetHeight || 0;
-      window.scrollTo({
-        top: productsSection.offsetTop - headerHeight,
-        behavior: 'smooth'
-      });
-    }
-  };
+    const scroll = () => {
+      const productsSection = document.getElementById('products');
+      if (productsSection) {
+        const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+        window.scrollTo({
+          top: productsSection.offsetTop - headerHeight,
+          behavior: 'smooth'
+        });
+      }
+    };
 
+    // Try immediately, then try again after a short delay if needed
+    scroll();
+    setTimeout(scroll, 100);
+  };
   const scrollToBrands = () => {
     const brandsSection = document.getElementById('brands');
     if (brandsSection) {
@@ -5518,6 +5532,28 @@ const CrackerShop = () => {
 
           {/* Special Offers Section */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-3 xs:gap-4 sm:gap-6 mb-6 sm:mb-8">
+            {/* Minimum Order Offer */}
+            <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-lg border border-purple-400/30 rounded-xl xs:rounded-2xl px-3 py-2 xs:px-4 xs:py-3 sm:px-5 sm:py-3 md:px-6 md:py-4 flex items-center space-x-2 xs:space-x-3 hover:scale-105 transition-all duration-300 shadow-lg max-w-xs sm:max-w-none relative overflow-hidden">
+             
+
+              <div className="flex-shrink-0">
+                <div className="relative">
+                  <Tag className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-purple-400 animate-pulse" />
+                  <div className="absolute inset-0 h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-purple-400/30 animate-ping">
+                    <Tag className="h-full w-full" />
+                  </div>
+                </div>
+              </div>
+              <div className="text-left">
+                <p className="text-purple-400 font-bold text-xs xs:text-sm sm:text-base">MINIMUM ORDER ₹5000</p>
+                <p className="text-purple-300 text-[10px] xs:text-xs sm:text-sm">
+                  To ensure the best quality service, we maintain a minimum order value of ₹5000.
+                  This helps us deliver premium products with proper packaging and safe handling.
+                </p>
+              </div>
+            </div>
+
+
             {/* Free Delivery Offer */}
             <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-lg border border-green-400/30 rounded-xl xs:rounded-2xl px-3 py-2 xs:px-4 xs:py-3 sm:px-5 sm:py-3 md:px-6 md:py-4 flex items-center space-x-2 xs:space-x-3 hover:scale-105 transition-all duration-300 shadow-lg max-w-xs sm:max-w-none">
               <div className="flex-shrink-0">
@@ -5530,7 +5566,7 @@ const CrackerShop = () => {
                 <p className="text-green-400 font-bold text-xs xs:text-sm sm:text-base">FREE DELIVERY</p>
                 <p className="text-green-300 text-[10px] xs:text-xs sm:text-sm">
                   Enjoy doorstep delivery at no extra cost! Place your order before
-                  <span className="font-semibold">October 1st</span> and get your crackers delivered safely and fast — absolutely free.
+                  <span className="font-semibold"> October 1st</span> and get your crackers delivered safely and fast — absolutely free.
                 </p>
               </div>
             </div>
@@ -5603,7 +5639,7 @@ const CrackerShop = () => {
             {brands.map(brand => (
               <div
                 key={brand.id}
-                onClick={() => setSelectedBrand(brand.id)}
+                onClick={() => handleBrandSelect(brand.id)}
                 className={`bg-gradient-to-r ${brand.color} rounded-xl xs:rounded-2xl overflow-hidden shadow-lg xs:shadow-xl md:shadow-2xl border border-white/20 hover:border-yellow-400/50 transition-all duration-500 transform hover:scale-105 cursor-pointer group`}
               >
                 <div className="relative overflow-hidden h-48 xs:h-56 sm:h-64">

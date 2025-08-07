@@ -264,6 +264,8 @@ export default function CrackerShopCheckout() {
       }
     }
 
+    // This line initiates the download. Browsers will handle the download,
+    // but will not automatically open the PDF due to security restrictions.
     doc.save(`order_receipt_${orderData._id}.pdf`);
   };
 
@@ -294,7 +296,7 @@ export default function CrackerShopCheckout() {
 
       };
 
-      const response = await fetch('https://cracker-ptsv.onrender.com/api/orders', {
+      const response = await fetch('http://localhost:5000/api/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -312,6 +314,7 @@ export default function CrackerShopCheckout() {
       setShowSuccess(true);
 
       // Pass both the orderData and the actual order ID from the response
+      // This call will trigger the PDF download.
       generateReceipt({
         ...orderData,
         _id: responseData.order._id, // Use the actual order ID from the server
