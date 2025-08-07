@@ -8,7 +8,6 @@ export default function AdminOrdersManagement() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
   const [brandFilter, setBrandFilter] = useState('all');
 
   // Fetch all orders from backend
@@ -17,7 +16,7 @@ export default function AdminOrdersManagement() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch('http://localhost:5000/api/orders');
+        const response = await fetch('https://cracker-ptsv.onrender.comapi/orders');
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -26,7 +25,6 @@ export default function AdminOrdersManagement() {
         const data = await response.json();
 
         if (data.success) {
-          // Ensure discount fields exist in each order
           const processedOrders = data.orders.map(order => ({
             ...order,
             totals: {
@@ -34,7 +32,8 @@ export default function AdminOrdersManagement() {
               discountAmount: order.totals.discountAmount || 0,
               discountPercentage: order.totals.discountPercentage || 0
             }
-          }));
+          })).sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+
           setOrders(processedOrders);
         } else {
           throw new Error(data.error || 'Failed to fetch orders');
@@ -54,7 +53,7 @@ export default function AdminOrdersManagement() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}`);
+      const response = await fetch(`https://cracker-ptsv.onrender.com/api/orders/${orderId}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -63,7 +62,6 @@ export default function AdminOrdersManagement() {
       const data = await response.json();
 
       if (data.success) {
-        // Ensure discount fields exist
         const orderWithDiscount = {
           ...data.order,
           totals: {
@@ -84,170 +82,112 @@ export default function AdminOrdersManagement() {
     }
   };
 
-const generateReceipt = (order) => {
-  const doc = new jsPDF({ unit: "mm", format: "a4" });
-  const itemsPerPage = 15; // Number of items to show per page
-  const totalPages = Math.ceil(order.items.length / itemsPerPage);
+  const generateReceipt = (order) => {
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    const itemsPerPage = 15;
+    const totalPages = Math.ceil(order.items.length / itemsPerPage);
 
-  // Function to add common elements to each page
-  const addCommonElements = (pageNumber) => {
-    // Simple white background
-    doc.setFillColor(255, 255, 255);
-    doc.rect(0, 0, 210, 297, 'F');
+    const addCommonElements = (pageNumber) => {
+      doc.setFillColor(255, 255, 255);
+      doc.rect(0, 0, 210, 297, 'F');
+      doc.setDrawColor(0, 153, 255);
+      doc.setLineWidth(1);
+      doc.rect(5, 5, 200, 287);
+      doc.setFontSize(16);
+      doc.setTextColor(0, 51, 153);
+      doc.setFont(undefined, 'bold');
+      doc.text('ORDER RECEIPT', 105, 20, null, null, 'center');
+      doc.text(`Page: ${pageNumber}/${totalPages}`, 180, 285);
 
-    // Light blue border
-    doc.setDrawColor(0, 153, 255);
-    doc.setLineWidth(1);
-    doc.rect(5, 5, 200, 287);
+      if (pageNumber === 1) {
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text(`Order Date: ${formatDate(order.orderDate)}`, 180, 30, null, null, 'right');
+        doc.text(`Order ID: ${order._id}`, 180, 36, null, null, 'right');
+        doc.setFontSize(12);
+        doc.setTextColor(0, 51, 153);
+        doc.text('Customer Information:', 20, 55);
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0);
+        doc.text(`Name: ${order.customer.firstName} ${order.customer.lastName}`, 25, 63);
+        doc.text(`Email: ${order.customer.email}`, 25, 69);
+        doc.text(`Phone: ${order.customer.phone}`, 25, 75);
+        doc.text(`Address: ${order.customer.address}, ${order.customer.city}, ${order.customer.state} - ${order.customer.pincode}`, 25, 81);
+      }
+    };
 
-    // Order Header
-    doc.setFontSize(16);
-    doc.setTextColor(0, 51, 153);
-    doc.setFont(undefined, 'bold');
-    doc.text('ORDER RECEIPT', 105, 20, null, null, 'center');
-
-    // Page number (bottom right)
-    doc.text(`Page: ${pageNumber}/${totalPages}`, 180, 285);
-
-    // Order Info and Customer Info (only on first page)
-    if (pageNumber === 1) {
-      // Order Info (right aligned)
-      doc.setFontSize(10);
-      doc.setTextColor(0, 0, 0);
-      doc.text(`Order Date: ${formatDate(order.orderDate)}`, 180, 30, null, null, 'right');
-      doc.text(`Order ID: ${order._id}`, 180, 36, null, null, 'right');
-
-      // Customer Info
+    const addItemsTable = (items, startY, pageNumber) => {
       doc.setFontSize(12);
       doc.setTextColor(0, 51, 153);
-      doc.text('Customer Information:', 20, 55);
+      doc.text('Order Items:', 20, startY);
+      doc.setFillColor(240, 240, 240);
+      doc.rect(20, startY + 5, 170, 8, 'F');
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(10);
+      doc.text('S.No', 25, startY + 10);
+      doc.text('Item', 35, startY + 10);
+      doc.text('Brand', 95, startY + 10);
+      doc.text('Price', 140, startY + 10);
+      doc.text('Qty', 160, startY + 10);
+      doc.text('Total', 180, startY + 10);
 
+      let yPos = startY + 15;
+      items.forEach((item, index) => {
+        const rowColor = index % 2 === 0 ? [255, 255, 255] : [245, 245, 245];
+        doc.setFillColor(...rowColor);
+        doc.rect(20, yPos - 3, 170, 6, 'F');
+        doc.setTextColor(0, 0, 0);
+        const serialNumber = (pageNumber - 1) * itemsPerPage + index + 1;
+        doc.text(serialNumber.toString(), 25, yPos);
+        const itemNameLines = doc.splitTextToSize(item.name, 55);
+        const brandLines = doc.splitTextToSize(item.brand || '', 30);
+        const linesNeeded = Math.max(itemNameLines.length, brandLines.length);
+        doc.text(itemNameLines, 35, yPos);
+        doc.text(brandLines, 95, yPos);
+        doc.text(`${item.price.toFixed(2)}`, 140, yPos);
+        doc.text(item.quantity.toString(), 160, yPos);
+        doc.text(`${(item.price * item.quantity).toFixed(2)}`, 180, yPos);
+        yPos += 6 * linesNeeded;
+      });
+
+      return yPos;
+    };
+
+    const addTotalsSection = (yPos) => {
+      doc.setFontSize(12);
+      doc.setTextColor(0, 51, 153);
+      doc.text('Order Summary:', 20, yPos + 10);
       doc.setFontSize(10);
       doc.setTextColor(0, 0, 0);
-      doc.text(`Name: ${order.customer.firstName} ${order.customer.lastName}`, 25, 63);
-      doc.text(`Email: ${order.customer.email}`, 25, 69);
-      doc.text(`Phone: ${order.customer.phone}`, 25, 75);
-      doc.text(`Address: ${order.customer.address}, ${order.customer.city}, ${order.customer.state} - ${order.customer.pincode}`, 25, 81);
-    }
-  };
+      doc.text('Subtotal:', 140, yPos + 18);
+      doc.text(`${order.totals.subtotal.toFixed(2)}`, 180, yPos + 18);
 
-  // Function to add order items table
-  const addItemsTable = (items, startY) => {
-    // Order Items header
-    doc.setFontSize(12);
-    doc.setTextColor(0, 51, 153);
-    doc.text('Order Items:', 20, startY);
+      if (order.totals.discountAmount > 0) {
+        doc.text(`Discount:`, 140, yPos + 24);
+        doc.text(`${order.totals.discountPercentage}%`, 180, yPos + 24);
+        yPos += 6;
+      }
 
-    // Header row
-    doc.setFillColor(240, 240, 240);
-    doc.rect(20, startY + 5, 170, 8, 'F');
+      doc.setFont(undefined, 'bold');
+      doc.text('Total Amount:', 140, yPos + 30);
+      doc.text(`${order.totals.total.toFixed(2)}`, 180, yPos + 30);
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      doc.text('Thank you for your business', 105, yPos + 50, null, null, 'center');
+    };
 
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(10);
-    doc.text('Item', 25, startY + 10);
-    doc.text('Brand', 95, startY + 10); // Adjusted brand position
-    doc.text('Price', 140, startY + 10);
-    doc.text('Qty', 160, startY + 10);
-    doc.text('Total', 180, startY + 10);
-
-    // Table rows with text wrapping
-    let yPos = startY + 15;
-    items.forEach((item, index) => {
-      const rowColor = index % 2 === 0 ? [255, 255, 255] : [245, 245, 245];
-      doc.setFillColor(...rowColor);
-      doc.rect(20, yPos - 3, 170, 6, 'F');
-
-      doc.setTextColor(0, 0, 0);
-      
-      // Split long item names and brands into multiple lines if needed
-      const itemNameLines = doc.splitTextToSize(item.name, 60); // 60mm width for item name
-      const brandLines = doc.splitTextToSize(item.brand || '', 30); // 30mm width for brand
-      
-      // Get the number of lines needed for this row
-      const linesNeeded = Math.max(itemNameLines.length, brandLines.length);
-      
-      // Draw item name (multiple lines if needed)
-      doc.text(itemNameLines, 25, yPos);
-      
-      // Draw brand (multiple lines if needed)
-      doc.text(brandLines, 95, yPos);
-      
-      // Draw price, quantity and total (aligned to first line)
-      doc.text(`${item.price.toFixed(2)}`, 140, yPos);
-      doc.text(item.quantity.toString(), 160, yPos);
-      doc.text(`${(item.price * item.quantity).toFixed(2)}`, 180, yPos);
-      
-      // Adjust yPos based on lines needed
-      yPos += 6 * linesNeeded;
-    });
-
-    return yPos;
-  };
-
-  // Function to add totals section (only on last page)
-  const addTotalsSection = (yPos) => {
-    doc.setFontSize(12);
-    doc.setTextColor(0, 51, 153);
-    doc.text('Order Summary:', 20, yPos + 10);
-
-    doc.setFontSize(10);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Subtotal:', 140, yPos + 18);
-    doc.text(`${order.totals.subtotal.toFixed(2)}`, 180, yPos + 18);
-
-    if (order.totals.discountAmount > 0) {
-      doc.text(`Discount:`, 140, yPos + 24);
-      doc.text(`-${order.totals.discountAmount.toFixed(2)} (${order.totals.discountPercentage}%)`, 180, yPos + 24);
-      yPos += 6;
+    for (let page = 1; page <= totalPages; page++) {
+      if (page > 1) doc.addPage();
+      addCommonElements(page);
+      const startIndex = (page - 1) * itemsPerPage;
+      const endIndex = Math.min(startIndex + itemsPerPage, order.items.length);
+      const pageItems = order.items.slice(startIndex, endIndex);
+      const startY = page === 1 ? 95 : 30;
+      let yPos = addItemsTable(pageItems, startY, page);
+      if (page === totalPages) addTotalsSection(yPos);
     }
 
-    doc.text('Delivery Fee:', 140, yPos + 24);
-    doc.text(`${order.totals.deliveryFee.toFixed(2)}`, 180, yPos + 24);
-
-    doc.setFont(undefined, 'bold');
-    doc.text('Total Amount:', 140, yPos + 30);
-    doc.text(`${order.totals.total.toFixed(2)}`, 180, yPos + 30);
-
-    // Simple footer
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    doc.text('Thank you for your business', 105, yPos + 50, null, null, 'center');
-  };
-
-  // Generate each page
-  for (let page = 1; page <= totalPages; page++) {
-    if (page > 1) {
-      doc.addPage();
-    }
-
-    addCommonElements(page);
-
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, order.items.length);
-    const pageItems = order.items.slice(startIndex, endIndex);
-
-    // Calculate starting Y position based on whether it's the first page
-    const startY = page === 1 ? 95 : 30; // 95 for first page (after customer details), 30 for subsequent pages
-    let yPos = addItemsTable(pageItems, startY);
-
-    // Add totals only on the last page
-    if (page === totalPages) {
-      addTotalsSection(yPos);
-    }
-  }
-
-  doc.save(`order_receipt_${order._id.slice(-8)}.pdf`);
-};
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'processing': return 'bg-yellow-100 text-yellow-800';
-      case 'confirmed': return 'bg-blue-100 text-blue-800';
-      case 'shipped': return 'bg-purple-100 text-purple-800';
-      case 'delivered': return 'bg-green-100 text-green-800';
-      case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
+    doc.save(`order_receipt_${order._id.slice(-8)}.pdf`);
   };
 
   const formatDate = (dateString) => {
@@ -268,12 +208,10 @@ const generateReceipt = (order) => {
       (order.promoCode && order.promoCode.toLowerCase().includes(searchTerm.toLowerCase())) ||
       order.items.some(item => item.brand.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
-
     const matchesBrand = brandFilter === 'all' ||
       order.items.some(item => item.brand === brandFilter);
 
-    return matchesSearch && matchesStatus && matchesBrand;
+    return matchesSearch && matchesBrand;
   });
 
   const handleOrderClick = (order) => {
@@ -286,10 +224,10 @@ const generateReceipt = (order) => {
 
   if (loading && !selectedOrder) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading orders...</p>
+          <p className="mt-4 text-gray-600 text-lg">Loading orders...</p>
         </div>
       </div>
     );
@@ -297,14 +235,14 @@ const generateReceipt = (order) => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <Package className="mx-auto h-12 w-12 text-red-500" />
-          <h3 className="mt-2 text-lg font-medium text-gray-900">Error loading orders</h3>
-          <p className="mt-1 text-sm text-gray-500">{error}</p>
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center p-8 bg-white rounded-xl shadow-lg">
+          <Package className="mx-auto h-16 w-16 text-red-500" />
+          <h3 className="mt-4 text-xl font-medium text-gray-900">Error loading orders</h3>
+          <p className="mt-2 text-base text-gray-500">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+            className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
           >
             Retry
           </button>
@@ -315,169 +253,108 @@ const generateReceipt = (order) => {
 
   if (selectedOrder) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gray-100 py-6 px-4">
+        <div className="max-w-4xl mx-auto">
           <button
             onClick={handleBackToList}
-            className="flex items-center text-blue-600 hover:text-blue-800 mb-6 transition-colors"
+            className="flex items-center text-blue-700 hover:text-blue-900 mb-6 transition-colors duration-200 text-base font-medium"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back to Orders List
           </button>
 
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">Order Details</h1>
+          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div className="flex flex-col">
+              <div className="mb-4">
+                <h1 className="text-2xl font-bold text-gray-900">Customer Details</h1>
                 <p className="text-sm text-gray-600 mt-1">Order ID: {selectedOrder._id}</p>
               </div>
-              <div className="mt-4 sm:mt-0 flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(selectedOrder.status)}`}>
-                  {selectedOrder.status.charAt(0).toUpperCase() + selectedOrder.status.slice(1)}
-                </span>
+              <div className="flex flex-col space-y-3">
                 <span className="text-sm text-gray-500">
                   {formatDate(selectedOrder.orderDate)}
                 </span>
                 <button
                   onClick={() => generateReceipt(selectedOrder)}
-                  className="px-3 py-1 bg-green-600 text-white rounded-md text-sm hover:bg-green-700 flex items-center"
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 flex items-center justify-center transition-colors duration-200"
                 >
-                  <CheckCircle className="w-4 h-4 mr-1" />
+                  <CheckCircle className="w-4 h-4 mr-2" />
                   Download Receipt
                 </button>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                  <Package className="w-5 h-5 mr-2" />
-                  Order Items
-                </h2>
-                <div className="space-y-4">
-                  {selectedOrder.items.map((item, index) => (
-                    <div key={index} className="flex items-center space-x-4 py-4 border-b border-gray-200 last:border-b-0">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <Package className="w-8 h-8 text-gray-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-medium text-gray-900">{item.name}</h3>
-                        <p className="text-sm text-gray-500">Brand: {item.brand}</p>
-                        <p className="text-sm text-gray-500">Product ID: {item.productId}</p>
-                        <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-medium text-gray-900">{(item.price * item.quantity).toFixed(2)}</p>
-                        <p className="text-sm text-gray-500">{item.price.toFixed(2)} each</p>
-                      </div>
-                    </div>
-                  ))}
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+              <User className="w-5 h-5 mr-2 text-blue-600" />
+              Customer Information
+            </h2>
+
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs font-medium text-gray-700 block mb-1">Full Name</label>
+                  <p className="text-base text-gray-900 bg-gray-50 p-2 rounded-lg">
+                    {selectedOrder.customer.firstName} {selectedOrder.customer.lastName}
+                  </p>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-gray-700 block mb-1">Email Address</label>
+                  <p className="text-xs text-gray-900 bg-gray-50 p-2 rounded-lg">
+                    {selectedOrder.customer.email}
+                  </p>
+
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-gray-700 block mb-1">Phone Number</label>
+                  <p className="text-base text-gray-900 bg-gray-50 p-2 rounded-lg">
+                    {selectedOrder.customer.phone}
+                  </p>
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                  <User className="w-5 h-5 mr-2" />
-                  Customer Information
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm font-medium text-gray-700">Name</p>
-                    <p className="text-sm text-gray-900">{selectedOrder.customer.firstName} {selectedOrder.customer.lastName}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-700">Email</p>
-                    <p className="text-sm text-gray-900">{selectedOrder.customer.email}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-700">Phone</p>
-                    <p className="text-sm text-gray-900">{selectedOrder.customer.phone}</p>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs font-medium text-gray-700 block mb-1 flex items-center">
+                    <MapPin className="w-4 h-4 mr-1" />
+                    Delivery Address
+                  </label>
+                  <div className="bg-gray-50 p-3 rounded-lg space-y-1">
+                    <p className="text-base text-gray-900">{selectedOrder.customer.address}</p>
+                    <p className="text-base text-gray-900">
+                      {selectedOrder.customer.city}, {selectedOrder.customer.state}
+                    </p>
+                    <p className="text-base text-gray-900">PIN: {selectedOrder.customer.pincode}</p>
                   </div>
                 </div>
-              </div>
 
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                  <MapPin className="w-5 h-5 mr-2" />
-                  Delivery Address
-                </h2>
-                <div className="text-sm text-gray-600">
-                  <p>{selectedOrder.customer.address}</p>
-                  <p>{selectedOrder.customer.city}, {selectedOrder.customer.state} - {selectedOrder.customer.pincode}</p>
-                  {selectedOrder.customer.specialInstructions && (
-                    <div className="mt-3">
-                      <p className="font-medium text-gray-700">Special Instructions:</p>
-                      <p className="text-gray-600">{selectedOrder.customer.specialInstructions}</p>
-                    </div>
-                  )}
-                </div>
+                {selectedOrder.customer.specialInstructions && (
+                  <div>
+                    <label className="text-xs font-medium text-gray-700 block mb-1">Special Instructions</label>
+                    <p className="text-base text-gray-900 bg-yellow-50 p-2 rounded-lg border-l-4 border-yellow-400">
+                      {selectedOrder.customer.specialInstructions}
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
-            <div className="space-y-6">
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h2>
-                <div className="space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Subtotal</span>
-                    <span className="text-gray-900">{selectedOrder.totals.subtotal.toFixed(2)}</span>
-                  </div>
-
-                  {selectedOrder.totals.discountAmount > 0 && (
-                    <>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Discount ({selectedOrder.totals.discountPercentage}%)</span>
-                        <span className="text-green-600">-{selectedOrder.totals.discountAmount.toFixed(2)}</span>
-                      </div>
-                      {selectedOrder.promoCode && (
-                        <div className="flex justify-between text-sm items-center">
-                          <span className="text-gray-600">Promo Code</span>
-                          <span className="flex items-center text-gray-900">
-                            <Tag className="w-4 h-4 mr-1" />
-                            {selectedOrder.promoCode}
-                          </span>
-                        </div>
-                      )}
-                    </>
-                  )}
-
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Delivery Fee</span>
-                    <span className="text-gray-900">{selectedOrder.totals.deliveryFee.toFixed(2)}</span>
-                  </div>
-
-                  <div className="border-t pt-3">
-                    <div className="flex justify-between font-semibold">
-                      <span>Total</span>
-                      <span>{selectedOrder.totals.total.toFixed(2)}</span>
-                    </div>
-                  </div>
+            <div className="mt-6 pt-4 border-t border-gray-200">
+              <h3 className="text-base font-semibold text-gray-900 mb-3">Order Summary</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-blue-50 p-3 rounded-lg text-center">
+                  <p className="text-xs text-gray-600">Total Amount</p>
+                  <p className="text-lg font-bold text-blue-600"> {selectedOrder.totals.total.toFixed(2)}</p>
                 </div>
-              </div>
-
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                  <Clock className="w-5 h-5 mr-2" />
-                  Order Timeline
-                </h2>
-                <div className="space-y-3">
-                  <div className="flex items-center text-sm">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                    <div>
-                      <p className="font-medium text-gray-900">Order Placed</p>
-                      <p className="text-gray-500">{formatDate(selectedOrder.createdAt)}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center text-sm">
-                    <div className={`w-2 h-2 rounded-full mr-3 ${selectedOrder.status === 'processing' ? 'bg-yellow-500' : 'bg-green-500'
-                      }`}></div>
-                    <div>
-                      <p className="font-medium text-gray-900">Current Status</p>
-                      <p className="text-gray-500">{selectedOrder.status.charAt(0).toUpperCase() + selectedOrder.status.slice(1)}</p>
-                    </div>
-                  </div>
+                <div className="bg-green-50 p-3 rounded-lg text-center">
+                  <p className="text-xs text-gray-600">Items Count</p>
+                  <p className="text-lg font-bold text-green-600">{selectedOrder.items.length}</p>
+                </div>
+                <div className="bg-gray-50 p-3 rounded-lg text-center col-span-2">
+                  <p className="text-xs text-gray-600">Order Date</p>
+                  <p className="text-base font-semibold text-gray-600">{new Date(selectedOrder.orderDate).toLocaleDateString()}</p>
                 </div>
               </div>
             </div>
@@ -487,60 +364,43 @@ const generateReceipt = (order) => {
     );
   }
 
-  // Get unique brands from all orders
   const allBrands = [...new Set(orders.flatMap(order =>
     order.items.map(item => item.brand)
   ))].filter(brand => brand);
 
-
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div>
+    <div className="min-h-screen bg-gray-100 py-6 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="flex flex-col">
+            <div className="mb-4">
               <h1 className="text-2xl font-bold text-gray-900">Orders Management</h1>
               <p className="text-sm text-gray-600 mt-1">Manage all customer orders</p>
             </div>
-            <div className="mt-4 sm:mt-0">
-              <span className="text-sm text-gray-500">
+            <div>
+              <span className="text-sm text-gray-500 font-medium">
                 Total Orders: {filteredOrders.length}
               </span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+          <div className="flex flex-col space-y-3">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
                 type="text"
-                placeholder="Search by customer name, email, order ID, promo code, or brand..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Search orders..."
+                className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <div className="relative">
-              <Filter className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Tag className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <select
-                className="pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-              >
-                <option value="all">All Status</option>
-                <option value="processing">Processing</option>
-                <option value="confirmed">Confirmed</option>
-                <option value="shipped">Shipped</option>
-                <option value="delivered">Delivered</option>
-                <option value="cancelled">Cancelled</option>
-              </select>
-            </div>
-            <div className="relative">
-              <Tag className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              <select
-                className="pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-9 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-sm appearance-none"
                 value={brandFilter}
                 onChange={(e) => setBrandFilter(e.target.value)}
               >
@@ -549,116 +409,143 @@ const generateReceipt = (order) => {
                   <option key={brand} value={brand}>{brand}</option>
                 ))}
               </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg className="fill-current h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          {loading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600">Loading orders...</p>
-            </div>
-          ) : (
-            <>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Customer
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Order ID
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Total
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Discount
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Date
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {filteredOrders.map((order) => (
-                      <tr key={order._id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10">
-                              <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                <User className="h-5 w-5 text-blue-600" />
-                              </div>
-                            </div>
-                            <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900">
-                                {order.customer.firstName} {order.customer.lastName}
-                              </div>
-                              <div className="text-sm text-gray-500">
-                                {order.customer.email}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {order._id.slice(-8)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {order.totals.total.toFixed(2)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {order.totals.discountAmount > 0 ? (
-                            <div className="flex flex-col">
-                              <span className="text-sm text-gray-900">
-                                -{order.totals.discountAmount.toFixed(2)}
-                              </span>
-                              <span className="text-xs text-gray-500">
-                                {order.totals.discountPercentage}% off
-                                {order.promoCode && ` (${order.promoCode})`}
-                              </span>
-                            </div>
-                          ) : (
-                            <span className="text-sm text-gray-500">None</span>
-                          )}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {formatDate(order.orderDate)}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <button
-                            onClick={() => handleOrderClick(order)}
-                            className="text-blue-600 hover:text-blue-900 flex items-center"
-                          >
-                            <Eye className="w-4 h-4 mr-1" />
-                            View Details
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              {filteredOrders.length === 0 && (
-                <div className="text-center py-12">
-                  <Package className="mx-auto h-12 w-12 text-gray-400" />
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">No orders found</h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {searchTerm || statusFilter !== 'all' || brandFilter !== 'all'
-                      ? 'Try adjusting your search or filter criteria'
-                      : 'No orders have been placed yet'
-                    }
-                  </p>
-                </div>
-              )}
-            </>
-          )}
+        {/* Desktop View */}
+        <div className="hidden md:block">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Discount</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {filteredOrders.map((order) => (
+                  <tr key={order._id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        {order.customer.firstName} {order.customer.lastName}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">{order._id.slice(-8)}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500">
+                        {new Date(order.orderDate).toLocaleDateString()}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        {order.totals.total.toFixed(2)}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-500">
+                        {order.totals.discountAmount > 0 ? (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            {order.totals.discountPercentage}%
+                            {order.promoCode && ` (${order.promoCode})`}
+                          </span>
+                        ) : (
+                          <span className="text-gray-400">None</span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <button
+                        onClick={() => handleOrderClick(order)}
+                        className="text-blue-600 hover:text-blue-900 mr-4"
+                      >
+                        View Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
+
+        {/* Mobile View */}
+        <div className="md:hidden">
+          <div className="divide-y divide-gray-200">
+            {filteredOrders.map((order) => (
+              <div key={order._id} className="p-4 hover:bg-blue-50 transition-colors duration-150">
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center min-w-0">
+                    <div className="h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center mr-3 flex-shrink-0">
+                      <User className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold text-gray-900 truncate">
+                        {order.customer.firstName}{order.customer.lastName}
+                      </div>
+
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleOrderClick(order)}
+                    className="ml-2 px-3 py-1 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 flex items-center transition-colors duration-150 text-sm flex-shrink-0"
+                  >
+                    <Eye className="w-3 h-3 mr-1" />
+                    View
+                  </button>
+                </div>
+
+                <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                  <div className="truncate">
+                    <span className="text-gray-500">Order ID:</span>
+                    <span className="ml-1 font-medium">{order._id.slice(-8)}</span>
+                  </div>
+                  <div className="text-right truncate">
+                    <span className="text-gray-500">Total:</span>
+                    <span className="ml-1 font-medium"> {order.totals.total.toFixed(2)}</span>
+                  </div>
+                  <div className="truncate">
+                    <span className="text-gray-500">Date:</span>
+                    <span className="ml-1">{new Date(order.orderDate).toLocaleDateString()}</span>
+                  </div>
+                  {/* <div className="text-right truncate">
+                    <span className="text-gray-500">Discount:</span>
+                    <span className="ml-1">
+                      {order.totals.discountAmount > 0 ? (
+                        <>
+                          {order.totals.discountPercentage}%
+                          {order.promoCode && ` (${order.promoCode})`}
+                        </>
+                      ) : 'None'}
+                    </span>
+                  </div> */}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {filteredOrders.length === 0 && !loading && (
+          <div className="text-center py-12 bg-white rounded-lg shadow-md">
+            <Package className="mx-auto h-12 w-12 text-gray-400" />
+            <h3 className="mt-3 text-base font-semibold text-gray-900">No orders found</h3>
+            <p className="mt-1 text-sm text-gray-500">
+              {searchTerm || brandFilter !== 'all'
+                ? 'Try adjusting your search or filter criteria'
+                : 'No orders have been placed yet'
+              }
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

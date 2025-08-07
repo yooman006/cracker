@@ -98,8 +98,6 @@ export default function CrackerShopCheckout() {
 
     // Function to add common elements to each page
     const addCommonElements = (pageNumber) => {
-      // Draw Ultra Instinct Silver-White Gradient Background using canvas
-     
       doc.setLineWidth(5);
       doc.roundedRect(5, 5, 200, 287, 3, 3);
 
@@ -108,8 +106,6 @@ export default function CrackerShopCheckout() {
       doc.setTextColor(0, 102, 204);
       doc.setFont(undefined, 'bold');
       doc.text('FireCracker ', 105, 30, null, null, 'center');
-
-
 
       // Contact Info
       doc.setFontSize(12);
@@ -122,22 +118,22 @@ export default function CrackerShopCheckout() {
       doc.setLineWidth(1);
       doc.line(30, 55, 180, 55);
 
-      // Order Header
+     
+
+
+
+      // Customer Info (only on first page)
+      if (pageNumber === 1) {
+         // Order Header
       doc.setFontSize(16);
       doc.setTextColor(80, 80, 80);
       doc.text('ORDER RECEIPT', 105, 65, null, null, 'center');
 
-      // Order Info (on all pages, right aligned)
-     
-
-      // Customer Info (only on first page)
-      if (pageNumber === 1) {
-
-         doc.setFontSize(10);
-      doc.setTextColor(0, 102, 204);
-      doc.text(`Order Date: ${new Date().toLocaleDateString()}`, 180, 75, null, null, 'right');
-      doc.text(`Order ID: ${orderData._id}`, 180, 81, null, null, 'right');
-
+        // Order Info (on all pages, right aligned)
+        doc.setFontSize(10);
+        doc.setTextColor(0, 102, 204);
+        doc.text(`Order Date: ${new Date().toLocaleDateString()}`, 180, 75, null, null, 'right');
+        doc.text(`Order ID: ${orderData._id}`, 180, 81, null, null, 'right');
         doc.setFontSize(12);
         doc.setTextColor(0, 51, 153);
         doc.text('Customer Information:', 20, 95);
@@ -154,8 +150,8 @@ export default function CrackerShopCheckout() {
       doc.text(`Page: ${pageNumber}/${totalPages}`, 180, 285);
     };
 
-    // Function to add order items table
-    const addItemsTable = (items, startY) => {
+    // Function to add order items table with serial numbers
+    const addItemsTable = (items, startY, pageNumber) => {
       // Order Items header
       doc.setFontSize(12);
       doc.setTextColor(0, 51, 153);
@@ -167,8 +163,9 @@ export default function CrackerShopCheckout() {
 
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(10);
-      doc.text('Item', 25, startY + 10);
-      doc.text('Brand', 95, startY + 10); // Moved Brand column to the right
+      doc.text('S.No', 25, startY + 10); // Serial Number column
+      doc.text('Item', 40, startY + 10);  // Adjusted position
+      doc.text('Brand', 95, startY + 10);
       doc.text('Price', 140, startY + 10);
       doc.text('Qty', 160, startY + 10);
       doc.text('Total', 180, startY + 10);
@@ -182,15 +179,21 @@ export default function CrackerShopCheckout() {
 
         doc.setTextColor(0, 0, 0);
 
+        // Calculate serial number considering pagination
+        const serialNumber = (pageNumber - 1) * itemsPerPage + index + 1;
+
+        // Draw serial number
+        doc.text(serialNumber.toString(), 25, yPos);
+
         // Split long item names into multiple lines if needed
-        const itemNameLines = doc.splitTextToSize(item.name, 60); // 60mm width for item name
-        const brandLines = doc.splitTextToSize(item.brand || '', 30); // 30mm width for brand
+        const itemNameLines = doc.splitTextToSize(item.name, 50); // Reduced width for item name
+        const brandLines = doc.splitTextToSize(item.brand || '', 30);
 
         // Get the number of lines needed for this row
         const linesNeeded = Math.max(itemNameLines.length, brandLines.length);
 
         // Draw item name (multiple lines if needed)
-        doc.text(itemNameLines, 25, yPos);
+        doc.text(itemNameLines, 40, yPos);
 
         // Draw brand (multiple lines if needed)
         doc.text(brandLines, 95, yPos);
@@ -213,7 +216,7 @@ export default function CrackerShopCheckout() {
       doc.setTextColor(0, 51, 153);
       doc.text('Order Summary:', 20, yPos + 10);
 
-      doc.setFontSize(10);//{Math.round(discountAmount)}
+      doc.setFontSize(10);
       doc.setTextColor(0, 0, 0);
       doc.text('Subtotal:', 140, yPos + 18);
       doc.text(`${Math.round(orderData.totals.subtotal.toFixed(2))}`, 180, yPos + 18);
@@ -255,8 +258,8 @@ export default function CrackerShopCheckout() {
       const pageItems = orderData.items.slice(startIndex, endIndex);
 
       // Calculate starting Y position based on whether it's the first page
-      const startY = page === 1 ? 135 : 30; // 135 for first page (after customer details), 30 for subsequent pages
-      let yPos = addItemsTable(pageItems, startY);
+      const startY = page === 1 ? 135 : 30;
+      let yPos = addItemsTable(pageItems, startY, page);
 
       // Add totals only on the last page
       if (page === totalPages) {
@@ -264,8 +267,6 @@ export default function CrackerShopCheckout() {
       }
     }
 
-    // This line initiates the download. Browsers will handle the download,
-    // but will not automatically open the PDF due to security restrictions.
     doc.save(`order_receipt_${orderData._id}.pdf`);
   };
 
@@ -296,7 +297,7 @@ export default function CrackerShopCheckout() {
 
       };
 
-      const response = await fetch('https://cracker-ptsv.onrender.com/api/orders', {
+      const response = await fetch('https://cracker-ptsv.onrender.comapi/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -544,9 +545,9 @@ export default function CrackerShopCheckout() {
                   </h3>
                   <div className="text-sm text-blue-700 space-y-2">
                     <p className="font-medium">We will call you once your estimate order is placed. You can choose your Payment option.
-                       We accept Google Pay, Account Transfer
-                        Note:Cash on delivery not available</p>
-                    
+                      We accept Google Pay, Account Transfer
+                      Note:Cash on delivery not available</p>
+
                   </div>
                 </div>
 
