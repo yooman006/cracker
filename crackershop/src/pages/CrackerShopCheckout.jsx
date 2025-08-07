@@ -297,7 +297,7 @@ export default function CrackerShopCheckout() {
 
       };
 
-      const response = await fetch('https://cracker-ptsv.onrender.comapi/orders', {
+      const response = await fetch('https://cracker-1-6v08.onrender.com/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
