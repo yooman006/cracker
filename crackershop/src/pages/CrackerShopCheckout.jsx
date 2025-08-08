@@ -199,9 +199,9 @@ export default function CrackerShopCheckout() {
         doc.text(brandLines, 95, yPos);
 
         // Draw price, quantity and total (aligned to first line)
-        doc.text(`${item.price.toFixed(2)}`, 140, yPos);
+        doc.text(`${Math.round(item.price.toFixed(2))}`, 140, yPos);
         doc.text(item.quantity.toString(), 160, yPos);
-        doc.text(`${(item.price * item.quantity).toFixed(2)}`, 180, yPos);
+        doc.text(`${Math.round(item.price * item.quantity).toFixed(2)}`, 180, yPos);
 
         // Adjust yPos based on lines needed
         yPos += 6 * linesNeeded;

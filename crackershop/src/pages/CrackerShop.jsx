@@ -5750,7 +5750,7 @@ const CrackerShop = () => {
                         <p className="text-gray-300 text-xs xs:text-sm mb-3 xs:mb-4">{product.description}</p>
                         <div className="flex items-center justify-between">
                           <span className={`text-base xs:text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}>
-                            ₹{product.price}
+                            ₹{Math.round(product.price)}
                           </span>
                           <button
                             onClick={() => addToCart(product)}
