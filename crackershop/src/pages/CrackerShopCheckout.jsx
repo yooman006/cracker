@@ -111,7 +111,7 @@ export default function CrackerShopCheckout() {
       doc.setFontSize(12);
       doc.setTextColor(51, 153, 255);
       doc.text('Sivakasi - 626123', 105, 40, null, null, 'center');
-      doc.text('Phone: +91 8903623517 | Email: seshakavitha30@gmail.com.com', 105, 46, null, null, 'center');
+      doc.text('Phone: +91 8903623517 | Email: seshakavitha30@gmail.com', 105, 46, null, null, 'center');
 
       // Divider
       doc.setDrawColor(0, 153, 255);
