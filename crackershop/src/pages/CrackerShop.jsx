@@ -5534,7 +5534,7 @@ const CrackerShop = () => {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-3 xs:gap-4 sm:gap-6 mb-6 sm:mb-8">
             {/* Minimum Order Offer */}
             <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-lg border border-purple-400/30 rounded-xl xs:rounded-2xl px-3 py-2 xs:px-4 xs:py-3 sm:px-5 sm:py-3 md:px-6 md:py-4 flex items-center space-x-2 xs:space-x-3 hover:scale-105 transition-all duration-300 shadow-lg max-w-xs sm:max-w-none relative overflow-hidden">
-             
+
 
               <div className="flex-shrink-0">
                 <div className="relative">
@@ -5626,6 +5626,18 @@ const CrackerShop = () => {
           >
             Shop Now
           </button>
+
+          {/* Bulk Order Message */}
+          <div className="flex flex-col items-center mt-4">
+            <p className="bg-gradient-to-r from-yellow-200 via-orange-200 to-red-200 text-black px-5 py-2 rounded-full text-sm sm:text-base font-semibold shadow-lg animate-pulse">
+              📢 <span className="text-red-700">Bulk orders special discount available</span> - Contact:
+              <a href="tel:+918903623517" className="text-blue-700 hover:text-blue-900 ml-1">+91 8903623517</a>
+              or
+              <a href="mailto:seshakavitha30@gmail.com" className="text-blue-700 hover:text-blue-900 ml-1">seshakavitha30@gmail.com</a>
+            </p>
+          </div>
+
+
         </div>
       </section>
 
@@ -5640,8 +5652,13 @@ const CrackerShop = () => {
               <div
                 key={brand.id}
                 onClick={() => handleBrandSelect(brand.id)}
-                className={`bg-gradient-to-r ${brand.color} rounded-xl xs:rounded-2xl overflow-hidden shadow-lg xs:shadow-xl md:shadow-2xl border border-white/20 hover:border-yellow-400/50 transition-all duration-500 transform hover:scale-105 cursor-pointer group`}
+                className={`bg-gradient-to-r ${brand.color} rounded-xl xs:rounded-2xl overflow-hidden shadow-lg xs:shadow-xl md:shadow-2xl border border-white/20 hover:border-yellow-400/50 transition-all duration-500 transform hover:scale-105 cursor-pointer group relative`}
               >
+                {/* Discount Ribbon */}
+                <div className="absolute top-4 right-[-30px] bg-red-600 text-white text-xs sm:text-sm font-bold py-1 px-10 transform rotate-45 shadow-lg">
+                  50% OFF
+                </div>
+
                 <div className="relative overflow-hidden h-48 xs:h-56 sm:h-64">
                   <div className="absolute inset-0 bg-black/30 opacity-70 group-hover:opacity-50 transition-opacity duration-500"></div>
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
@@ -5659,6 +5676,7 @@ const CrackerShop = () => {
                   </button>
                 </div>
               </div>
+
             ))}
           </div>
         </div>
