@@ -16,7 +16,7 @@ export default function AdminOrdersManagement() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch('https://cracker-1-6v08.onrender.com/api/orders');
+        const response = await fetch('https://sivakasi-crackers-shop-backend.azurewebsites.net/api/orders');
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -53,7 +53,7 @@ export default function AdminOrdersManagement() {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`https://cracker-1-6v08.onrender.com/api/orders/${orderId}`);
+      const response = await fetch(`https://sivakasi-crackers-shop-backend.azurewebsites.net/api/orders/${orderId}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
