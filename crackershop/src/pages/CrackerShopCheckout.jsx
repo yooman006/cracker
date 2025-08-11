@@ -105,7 +105,7 @@ export default function CrackerShopCheckout() {
       doc.setFontSize(22);
       doc.setTextColor(0, 102, 204);
       doc.setFont(undefined, 'bold');
-      doc.text('FireCracker ', 105, 30, null, null, 'center');
+      doc.text('KavithaCrackers ', 105, 30, null, null, 'center');
 
       // Contact Info
       doc.setFontSize(12);

@@ -1790,7 +1790,7 @@ const CrackerShop = () => {
     },
     {
       "id": 162,
-      "name": "Matrix Firecracker",
+      "name": "Matrix KavithaCrackers",
       "price": 513.0,
       "image": assets.stdmatrix,
       "category": "fancy-items",
@@ -5424,7 +5424,7 @@ const CrackerShop = () => {
                 </div>
               </div>
               <div className="text-[20px] xs:text-xs sm:text-sm md:text-base lg:text-lg font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent whitespace-nowrap">
-                FireCracker
+                KavithaCrackers
               </div>
             </div>
 
@@ -5790,7 +5790,7 @@ const CrackerShop = () => {
               <div className="flex items-center space-x-2 xs:space-x-3 mb-3 xs:mb-4">
                 <Sparkles className="h-5 w-5 xs:h-6 xs:w-6 text-yellow-400 animate-pulse" />
                 <h3 className="text-sm xs:text-base sm:text-lg font-bold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                  FireCracker Palace
+                  KavithaCrackers Palace
                 </h3>
               </div>
               <p className="text-gray-300 text-xs xs:text-sm sm:text-base">Your trusted partner for safe and spectacular celebrations.</p>
@@ -5822,7 +5822,7 @@ const CrackerShop = () => {
             </div>
           </div>
           <div className="border-t border-white/20 mt-5 xs:mt-6 sm:mt-8 pt-5 xs:pt-6 sm:pt-8 text-center text-gray-400 text-xs xs:text-sm sm:text-base">
-            <p>&copy; 2025 FireCracker Palace. All rights reserved.</p>
+            <p>&copy; 2025 KavithaCrackers Palace. All rights reserved.</p>
           </div>
         </div>
       </footer>
