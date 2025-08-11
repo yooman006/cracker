@@ -137,9 +137,9 @@ export default function CrackerShopCheckout() {
         doc.setFontSize(10);
         doc.setTextColor(0, 0, 0);
         doc.text(`Name: ${orderData.customer.firstName} ${orderData.customer.lastName}`, 25, 93);
-        doc.text(`Email: ${orderData.customer.email}`, 25, 99);
-        doc.text(`Phone: ${orderData.customer.phone}`, 25, 105);
-        doc.text(`Address: ${orderData.customer.address}, ${orderData.customer.city}, ${orderData.customer.state} - ${orderData.customer.pincode}`, 25, 111);
+        doc.text(`Email: ${orderData.customer.email}`, 25, 101);
+        doc.text(`Phone: ${orderData.customer.phone}`, 25, 109);
+        doc.text(`Address: ${orderData.customer.address}, ${orderData.customer.city}, ${orderData.customer.state} - ${orderData.customer.pincode}`, 25, 117);
       }
 
       // Page number (bottom right)
@@ -214,18 +214,18 @@ export default function CrackerShopCheckout() {
 
       doc.setFontSize(10);
       doc.setTextColor(0, 0, 0);
-      doc.text('Subtotal:', 140, yPos + 18);
-      doc.text(`${Math.round(orderData.totals.subtotal.toFixed(2))}`, 180, yPos + 18);
+      doc.text('Subtotal', 140, yPos + 18);
+      doc.text(`: ${Math.round(orderData.totals.subtotal.toFixed(2))}`, 180, yPos + 18);
 
       if (orderData.totals.discountAmount > 0) {
-        doc.text(`Discount :`, 140, yPos + 24);
-        doc.text(`-${orderData.totals.discountPercentage}%`, 180, yPos + 24);
+        doc.text(`Discount `, 140, yPos + 24);
+        doc.text(`: -${orderData.totals.discountPercentage}%`, 180, yPos + 24);
         yPos += 6;
       }
 
       doc.setFont(undefined, 'bold');
-      doc.text('Total Amount:', 140, yPos + 30);
-      doc.text(`${Math.round(orderData.totals.total.toFixed(2))}`, 180, yPos + 30);
+      doc.text('Total Amount', 140, yPos + 28);
+      doc.text(`: ${Math.round(orderData.totals.total.toFixed(2))}`, 180, yPos + 28);
 
       // Footer
       doc.setFontSize(12);
