@@ -5117,7 +5117,7 @@ const CrackerShop = () => {
 
   ];
 
-  
+
   const categories = [
     { id: 'all', name: 'All' },
     { id: 'giftbox', name: 'Giftbox' },
@@ -5264,7 +5264,10 @@ const CrackerShop = () => {
       }
     });
 
-    return categories.filter(category => availableCategories.has(category.id));
+    return [
+      { id: 'all', name: 'All' },
+      ...categories.filter(category => availableCategories.has(category.id))
+    ];
   };
 
   const addToCart = (product) => {
@@ -5322,11 +5325,11 @@ const CrackerShop = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
-  const filteredProducts = selectedBrand
-    ? (activeCategory === 'all'
-      ? products.filter(product => product.brand === selectedBrand)
-      : products.filter(product => product.brand === selectedBrand && product.category === activeCategory))
-    : [];
+const filteredProducts = selectedBrand
+  ? (activeCategory === 'all'
+    ? products.filter(product => product.brand === selectedBrand)
+    : products.filter(product => product.brand === selectedBrand && product.category === activeCategory))
+  : [];
 
   const scrollToProducts = () => {
     const scroll = () => {
@@ -5703,6 +5706,7 @@ const CrackerShop = () => {
             </button>
           </div>
 
+
           {/* Category Filter */}
           <section id="category-section" className="py-4 xs:py-5 sm:py-6 md:py-8 bg-black/30 backdrop-blur-md">
             <div className="container mx-auto px-3 xs:px-4">
@@ -5715,8 +5719,8 @@ const CrackerShop = () => {
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
                     className={`px-2 py-1 xs:px-3 xs:py-2 sm:px-4 sm:py-2 md:px-5 md:py-3 rounded-full transition-all duration-300 ${activeCategory === category.id
-                      ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-semibold shadow-lg transform scale-105'
-                      : 'bg-white/10 text-white hover:bg-white/20 hover:scale-105'
+                        ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-semibold shadow-lg transform scale-105'
+                        : 'bg-white/10 text-white hover:bg-white/20 hover:scale-105'
                       }`}
                   >
                     {category.name}
