@@ -5116,6 +5116,8 @@ const CrackerShop = () => {
 
 
   ];
+
+  
   const categories = [
     { id: 'all', name: 'All' },
     { id: 'giftbox', name: 'Giftbox' },
@@ -5886,7 +5888,7 @@ const CrackerShop = () => {
             <div className="border-t border-white/20 pt-4 xs:pt-5 sm:pt-6">
               <div className="flex justify-between items-center mb-3 xs:mb-4">
                 <span className="text-white text-sm xs:text-base sm:text-lg">Total:</span>
-                <span className="text-yellow-400 text-base xs:text-lg sm:text-xl md:text-2xl font-bold">₹{getTotalPrice()}</span>
+                <span className="text-yellow-400 text-base xs:text-lg sm:text-xl md:text-2xl font-bold">₹{Math.round(getTotalPrice())}</span>
               </div>
               <button
                 onClick={() => {

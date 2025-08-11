@@ -109,7 +109,7 @@ export default function AdminOrdersManagement() {
         doc.text('Customer Information:', 20, 55);
         doc.setFontSize(10);
         doc.setTextColor(0, 0, 0);
-        doc.text(`Name: ${order.customer.firstName} ${order.customer.lastName}`, 25, 63);
+        doc.text(`Name: ${order.customer.firstName}`, 25, 63);
         doc.text(`Email: ${order.customer.email}`, 25, 69);
         doc.text(`Phone: ${order.customer.phone}`, 25, 75);
         doc.text(`Address: ${order.customer.address}, ${order.customer.city}, ${order.customer.state} - ${order.customer.pincode}`, 25, 81);
