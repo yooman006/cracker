@@ -5270,6 +5270,10 @@ const CrackerShop = () => {
     ];
   };
 
+  const getUniqueProductCount = () => {
+    return cart.length; // Simply returns the number of unique products
+  };
+
   const addToCart = (product) => {
     // Check if cart is not empty and the new product's brand doesn't match existing items
     if (cart.length > 0 && cart[0].brand !== product.brand) {
@@ -5325,11 +5329,11 @@ const CrackerShop = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
-const filteredProducts = selectedBrand
-  ? (activeCategory === 'all'
-    ? products.filter(product => product.brand === selectedBrand)
-    : products.filter(product => product.brand === selectedBrand && product.category === activeCategory))
-  : [];
+  const filteredProducts = selectedBrand
+    ? (activeCategory === 'all'
+      ? products.filter(product => product.brand === selectedBrand)
+      : products.filter(product => product.brand === selectedBrand && product.category === activeCategory))
+    : [];
 
   const scrollToProducts = () => {
     const scroll = () => {
@@ -5462,10 +5466,10 @@ const filteredProducts = selectedBrand
                 onClick={() => setIsCartOpen(!isCartOpen)}
                 className="relative bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black p-2 xs:px-3 xs:py-2 md:px-4 md:py-2 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
-                <ShoppingCart className="h-3 w-3 xs:h-4 xs:w-4 sm:h-5 sm:w-5" />
+                <ShoppingCart className="h-5 w-5 xs:h-4 xs:w-4 sm:h-4 sm:w-4" />
                 {getTotalItems() > 0 && (
                   <span className="absolute -top-1 -right-1 xs:-top-1.5 xs:-right-1.5 sm:-top-2 sm:-right-2 bg-red-500 text-white text-[10px] xs:text-xs rounded-full h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 flex items-center justify-center animate-pulse font-bold">
-                    {getTotalItems()}
+                    {getUniqueProductCount()}
                   </span>
                 )}
               </button>
@@ -5719,8 +5723,8 @@ const filteredProducts = selectedBrand
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
                     className={`px-2 py-1 xs:px-3 xs:py-2 sm:px-4 sm:py-2 md:px-5 md:py-3 rounded-full transition-all duration-300 ${activeCategory === category.id
-                        ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-semibold shadow-lg transform scale-105'
-                        : 'bg-white/10 text-white hover:bg-white/20 hover:scale-105'
+                      ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-semibold shadow-lg transform scale-105'
+                      : 'bg-white/10 text-white hover:bg-white/20 hover:scale-105'
                       }`}
                   >
                     {category.name}
@@ -5758,15 +5762,52 @@ const filteredProducts = selectedBrand
                           <span className={`text-base xs:text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}>
                             ₹{Math.round(product.price)}
                           </span>
-                          <button
-                            onClick={() => addToCart(product)}
-                            disabled={cart.length > 0 && cart[0].brand !== product.brand}
-                            className={`bg-gradient-to-r ${product.color} text-black px-2 py-1.5 xs:px-3 xs:py-2 sm:px-4 sm:py-2 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center space-x-1 xs:space-x-2 text-xs xs:text-sm sm:text-base ${cart.length > 0 && cart[0].brand !== product.brand ? 'opacity-50 cursor-not-allowed' : ''}`}
-                          >
-                            <Plus className="h-3 w-3 xs:h-4 xs:w-4" />
-                            <span className="hidden xs:inline">Add to Cart</span>
-                            <span className="xs:hidden">Add</span>
-                          </button>
+
+                          {/* Check if item is in cart */}
+                          {(() => {
+                            const cartItem = cart.find(item => item.id === product.id);
+                            const isDisabled = cart.length > 0 && cart[0].brand !== product.brand;
+
+                            if (cartItem) {
+                              // Show quantity selector if item is in cart
+                              return (
+                                <div className="flex items-center bg-white/20 backdrop-blur-sm rounded-full border border-white/30 overflow-hidden">
+                                  <button
+                                    onClick={() => removeFromCart(product.id)}
+                                    className="w-8 h-8 xs:w-9 xs:h-9 bg-red-500 hover:bg-red-600 text-white font-bold flex items-center justify-center transition-all duration-300 hover:scale-105"
+                                    disabled={isDisabled}
+                                  >
+                                    <Minus className="w-3 h-3 xs:w-4 xs:h-4 stroke-2" />
+                                  </button>
+
+                                  <span className="px-3 xs:px-4 py-2 text-white font-semibold text-sm xs:text-base min-w-[2rem] text-center">
+                                    {cartItem.quantity}
+                                  </span>
+
+                                  <button
+                                    onClick={() => addToCart(product)}
+                                    className="w-8 h-8 xs:w-9 xs:h-9 bg-green-500 hover:bg-green-600 text-white font-bold flex items-center justify-center transition-all duration-300 hover:scale-105"
+                                    disabled={isDisabled}
+                                  >
+                                    <Plus className="w-3 h-3 xs:w-4 xs:h-4 stroke-2" />
+                                  </button>
+                                </div>
+                              );
+                            } else {
+                              // Show Add button if item is not in cart
+                              return (
+                                <button
+                                  onClick={() => addToCart(product)}
+                                  disabled={isDisabled}
+                                  className={`bg-gradient-to-r ${product.color} text-black px-2 py-1.5 xs:px-3 xs:py-2 sm:px-4 sm:py-2 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center space-x-1 xs:space-x-2 text-xs xs:text-sm sm:text-base ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                >
+                                  <Plus className="h-3 w-3 xs:h-4 xs:w-4" />
+                                  <span className="hidden xs:inline">Add to Cart</span>
+                                  <span className="xs:hidden">Add</span>
+                                </button>
+                              );
+                            }
+                          })()}
                         </div>
                       </div>
                     </div>

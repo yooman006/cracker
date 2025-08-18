@@ -58,7 +58,7 @@ export default function CrackerShopCheckout() {
         ...prev,
         [name]: ''
       }));
-    }
+    }  
   };
 
   const validateForm = () => {
