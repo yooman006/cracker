@@ -3689,7 +3689,7 @@ const CrackerShop = () => {
     {
       id: 1,
       name: "2% x 1000 Bird Crackers",
-      price: 34, // 24 + 40%
+      price: 38, // 24 + 40%
       image: assets.birdCrackers,
       category: "flash-light",
       brand: "pothys",
@@ -5902,7 +5902,7 @@ const CrackerShop = () => {
                     <img src={item.image} alt={item.name} className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 object-cover rounded-lg" />
                     <div className="flex-1">
                       <h4 className="text-white font-medium text-xs xs:text-sm sm:text-base">{item.name}</h4>
-                      <p className="text-yellow-400 text-xs xs:text-sm sm:text-base">₹{item.price}</p>
+                      <p className="text-yellow-400 text-xs xs:text-sm sm:text-base">₹{Math.round(item.price)}</p>
                     </div>
                     <div className="flex items-center space-x-1.5 xs:space-x-2">
                       <button
