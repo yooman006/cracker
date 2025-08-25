@@ -3678,7 +3678,7 @@ export const products = [
       price: 38, // 24 + 40%
       image: assets.birdCrackers,
       category: "flash-light",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.2,
       description: "1000 bird crackers in one packet",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-orange-500"
@@ -3689,7 +3689,7 @@ export const products = [
       price: 67, // 48 + 40%
       image: assets.lakshmi,
       category: "flash-light",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Premium Laxmi brand crackers",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-amber-500"
@@ -3700,7 +3700,7 @@ export const products = [
       price: 81,
       image: assets.lakshmi,
       category: "flash-light",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Traditional parrot design crackers",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-emerald-500"
@@ -3711,7 +3711,7 @@ export const products = [
       price: 50,
       image: assets.lakshmi,
       category: "flash-light",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Jocker brand flash crackers",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-pink-500"
@@ -3722,7 +3722,7 @@ export const products = [
       price: 87, // 58 + 40%
       image: assets.twosound,
       category: "flash-light",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "Deluxe version Laxmi crackers",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-cyan-500"
@@ -3733,7 +3733,7 @@ export const products = [
       price: 92, // 66 + 40%
       image: assets.twosound,
       category: "flash-light",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Special green flies with double sound",
       color: "from-green-500 to-emerald-500" // "from-indigo-500 to-purple-500"
@@ -3746,7 +3746,7 @@ export const products = [
       price: 108, // 77 + 40%
       image: assets.chakkaraso,
       category: "ground-chakkar",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Classic Asoka spinning chakkar",
       color: "from-green-500 to-emerald-500" // "from-pink-500 to-red-500"
@@ -3757,7 +3757,7 @@ export const products = [
       price: 146, // 104 + 40%
       image: assets.chakkarspl,
       category: "ground-chakkar",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "Special edition ground spinner",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3768,7 +3768,7 @@ export const products = [
       price: 199, // 142 + 40%
       image: assets.chakkardlx,
       category: "ground-chakkar",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.8,
       description: "Deluxe version with enhanced effects",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-pink-500"
@@ -3779,7 +3779,7 @@ export const products = [
       price: 398, // 284 + 40%
       image: assets.wheel,
       category: "ground-chakkar",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "Premium jolly wheel spinner",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
@@ -3792,7 +3792,7 @@ export const products = [
       price: 245, // 175 + 40%
       image: assets.big,
       category: "flower-pots",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Large flower pot fireworks",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-indigo-500"
@@ -3803,7 +3803,7 @@ export const products = [
       price: 329, // 235 + 40%
       image: assets.special,
       category: "flower-pots",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Special edition flower pots",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-pink-500"
@@ -3814,7 +3814,7 @@ export const products = [
       price: 476, // 340 + 40%
       image: assets.asoka,
       category: "flower-pots",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "Asoka brand flower pots",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-amber-500"
@@ -3827,7 +3827,7 @@ export const products = [
       price: 609, // 435 + 40%
       image: assets.cone,
       category: "fountains",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "Colorful cone shaped fountains",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-orange-500"
@@ -3838,7 +3838,7 @@ export const products = [
       price: 609,
       image: assets.koti,
       category: "fountains",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "Vibrant color fountain display",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-emerald-500"
@@ -3849,7 +3849,7 @@ export const products = [
       price: 1960, // 1400 + 40%
       image: assets.kotidlx,
       category: "fountains",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "Deluxe sizzling fountain effect",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-cyan-500"
@@ -3862,7 +3862,7 @@ export const products = [
       price: 199, // 142 + 40%
       image: assets.hydro,
       category: "bombs",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Hydro bomb with green effects",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-pink-500"
@@ -3873,7 +3873,7 @@ export const products = [
       price: 298, // 213 + 40%
       image: assets.king,
       category: "bombs",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "King size green bomb",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3884,7 +3884,7 @@ export const products = [
       price: 397,
       image: assets.classic,
       category: "bombs",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Classic size green bomb",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3895,7 +3895,7 @@ export const products = [
       price: 75,
       image: assets.bullet,
       category: "bombs",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Bullet bomb",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3906,7 +3906,7 @@ export const products = [
       price: 169,
       image: assets.ganga,
       category: "bombs",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Classic bomb",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3917,7 +3917,7 @@ export const products = [
       price: 203,
       image: assets.ganga,
       category: "bombs",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Classic size  bomb",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3928,7 +3928,7 @@ export const products = [
       price: 235, // 168 + 40%
       image: assets.color,
       category: "rockets",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Colorful aerial rocket",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-pink-500"
@@ -3939,7 +3939,7 @@ export const products = [
       price: 250,
       image: assets.rocketbomb,
       category: "rockets",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Colorful aerial rocket",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3950,7 +3950,7 @@ export const products = [
       price: 434,
       image: assets.rocket,
       category: "rockets",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Colorful aerial rocket",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3961,7 +3961,7 @@ export const products = [
       price: 343,
       image: assets.rocket,
       category: "rockets",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Colorful aerial rocket",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3972,7 +3972,7 @@ export const products = [
       price: 455,
       image: assets.two,
       category: "rockets",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Colorful aerial rocket",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -3983,7 +3983,7 @@ export const products = [
       price: 511,
       image: assets.three,
       category: "rockets",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Colorful aerial rocket",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-pink-500"
@@ -3996,7 +3996,7 @@ export const products = [
       price: 90, // 64 + 40%
       image: assets.star,
       category: "sliver-showers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "Twinkling silver star effect",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
@@ -4007,7 +4007,7 @@ export const products = [
       price: 257,
       image: assets.star,
       category: "sliver-showers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Twinkling silver star effect",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
@@ -4018,7 +4018,7 @@ export const products = [
       price: 140,
       image: assets.pencil,
       category: "sliver-showers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "Twinkling silver star effect",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
@@ -4029,7 +4029,7 @@ export const products = [
       price: 252,
       image: assets.pencil,
       category: "sliver-showers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Twinkling silver star effect",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
@@ -4040,7 +4040,7 @@ export const products = [
       price: 77,
       image: assets.stone,
       category: "sliver-showers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "Twinkling silver star effect",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
@@ -4053,7 +4053,7 @@ export const products = [
       price: 98, // 70 + 40%
       image: assets.red,
       category: "bijili-crackers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Traditional red bijili crackers",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-indigo-500"
@@ -4064,7 +4064,7 @@ export const products = [
       price: 105,
       image: assets.stripped,
       category: "bijili-crackers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Traditional red bijili crackers",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-indigo-500"
@@ -4076,7 +4076,7 @@ export const products = [
       price: 532, // 380 + 40%
       image: assets.shot,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Vibrant multi-color aerial shots",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-pink-500"
@@ -4087,7 +4087,7 @@ export const products = [
       price: 448, // 320 + 40%
       image: assets.star12,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Stunning star-shaped aerial explosions",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-indigo-500"
@@ -4098,7 +4098,7 @@ export const products = [
       price: 448, // 320 + 40%
       image: assets.star12,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "Large aerial bursts with 12 colorful shots",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-orange-500"
@@ -4109,7 +4109,7 @@ export const products = [
       price: 616, // 440 + 40%
       image: assets.shot12,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "Dramatic multi-shot aerial display",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
@@ -4120,7 +4120,7 @@ export const products = [
       price: 602, // 430 + 40%
       image: assets.triple,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Elegant gold, silver, and green effects",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-gray-500"
@@ -4131,7 +4131,7 @@ export const products = [
       price: 392, // 280 + 40%
       image: assets.paper,
       category: "paper-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.1,
       description: "Golden sparkler paper for handheld fun",
       color: "from-green-500 to-emerald-500" // "from-amber-500 to-yellow-500"
@@ -4142,7 +4142,7 @@ export const products = [
       price: 154, // 110 + 40%
       image: assets.pipe,
       category: "chotta-fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.0,
       description: "Small but vibrant fancy firework",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-pink-500"
@@ -4153,7 +4153,7 @@ export const products = [
       price: 728, // 520 + 40%
       image: assets.pipe,
       category: "aerial-fancy",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.8,
       description: "Powerful aerial pipes with triple effects",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-purple-500"
@@ -4164,7 +4164,7 @@ export const products = [
       price: 364, // 260 + 40%
       image: assets.pipe,
       category: "double-effect-fancy",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.2,
       description: "Single-piece aerial pipe with double effects",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-blue-500"
@@ -4175,7 +4175,7 @@ export const products = [
       price: 868, // 620 + 40%
       image: assets.pipe,
       category: "mega-flash-fancy",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "High-intensity mega flash pipes",
       color: "from-green-500 to-emerald-500" // "from-orange-500 to-red-500"
@@ -4189,7 +4189,7 @@ export const products = [
       price: 728, // 520 + 40%
       image: assets.pipel,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "High-altitude 3-inch pipe with thrilling effects",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-indigo-500"
@@ -4200,7 +4200,7 @@ export const products = [
       price: 1680, // 1200 + 40%
       image: assets.pipem,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "Premium mega pipe with sensational multi-color bursts",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-yellow-500"
@@ -4211,7 +4211,7 @@ export const products = [
       price: 672, // 480 + 40%
       image: assets.d100,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Deluxe sparkler pack for extended celebrations",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-cyan-500"
@@ -4222,7 +4222,7 @@ export const products = [
       price: 210, // 150 + 40%
       image: assets.candle,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.1,
       description: "Long-lasting fountain candle with bright sparks",
       color: "from-green-500 to-emerald-500" // "from-white-500 to-silver-500"
@@ -4233,7 +4233,7 @@ export const products = [
       price: 560, // 400 + 40%
       image: assets.drone,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Drone-shaped firework with aerial spins",
       color: "from-green-500 to-emerald-500" // "from-gray-500 to-black-500"
@@ -4244,7 +4244,7 @@ export const products = [
       price: 364, // 260 + 40%
       image: assets.drone,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "Helicopter-shaped spinner with colorful trails",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-lime-500"
@@ -4255,7 +4255,7 @@ export const products = [
       price: 672, // 480 + 40%
       image: assets.butterfly,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Whirling aerial disk with sparkling effects",
       color: "from-green-500 to-emerald-500" // "from-orange-500 to-red-500"
@@ -4266,7 +4266,7 @@ export const products = [
       price: 1064, // 760 + 40%
       image: assets.music,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.8,
       description: "Musical firework with synchronized light effects",
       color: "from-green-500 to-emerald-500" // "from-pink-500 to-rose-500"
@@ -4277,7 +4277,7 @@ export const products = [
       price: 224, // 160 + 40%
       image: assets.minmax,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.0,
       description: "Assorted mini sparklers for variety",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-amber-500"
@@ -4288,7 +4288,7 @@ export const products = [
       price: 392, // 280 + 40%
       image: assets.onehit,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Single explosive burst with dazzling colors",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-teal-500"
@@ -4299,7 +4299,7 @@ export const products = [
       price: 476, // 340 + 40%
       image: assets.mid,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Night-themed fountain with serene effects",
       color: "from-green-500 to-emerald-500" // "from-indigo-500 to-violet-500"
@@ -4310,7 +4310,7 @@ export const products = [
       price: 420, // 300 + 40%
       image: assets.tin,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.2,
       description: "Mini beer-shaped fountain with foamy sparks",
       color: "from-green-500 to-emerald-500" // "from-amber-500 to-brown-500"
@@ -4321,7 +4321,7 @@ export const products = [
       price: 203, // 145 + 40%
       image: assets.d24,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.1,
       description: "Classic deluxe sparkler pack",
       color: "from-green-500 to-emerald-500" // "from-white-500 to-gray-500"
@@ -4332,7 +4332,7 @@ export const products = [
       price: 224, // 160 + 40%
       image: assets.d28,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.2,
       description: "Longer-lasting deluxe sparklers",
       color: "from-green-500 to-emerald-500" // "from-silver-500 to-gray-500"
@@ -4343,7 +4343,7 @@ export const products = [
       price: 56, // 40 + 40%
       image: assets.g28,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 3.9,
       description: "Budget-friendly sparklers for casual use",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -4354,7 +4354,7 @@ export const products = [
       price: 56, // 40 + 40%
       image: assets.d28,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 3.8,
       description: "Traditional short sparklers",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-pink-500"
@@ -4365,7 +4365,7 @@ export const products = [
       price: 98, // 70 + 40%
       image: assets.g28,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.0,
       description: "Thicker sparklers with brighter flames",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-emerald-500"
@@ -4376,7 +4376,7 @@ export const products = [
       price: 196, // 140 + 40%
       image: assets.gaint56,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Double-length giant sparklers",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-cyan-500"
@@ -4387,7 +4387,7 @@ export const products = [
       price: 910, // 650 + 40%
       image: assets.g1g2g5g10,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.8,
       description: "Premium aerial firework with waterfall effects",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-indigo-500"
@@ -4398,7 +4398,7 @@ export const products = [
       price: 1820, // 1300 + 40%
       image: assets.g1g2g5g10,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "Grand multi-shot aerial display",
       color: "from-green-500 to-emerald-500" // "from-teal-500 to-emerald-500"
@@ -4409,7 +4409,7 @@ export const products = [
       price: 4550, // 3250 + 40%
       image: assets.g1g2g5g10,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Luxury firework with synchronized patterns",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-pink-500"
@@ -4420,7 +4420,7 @@ export const products = [
       price: 8820, // 6300 + 40%
       image: assets.g1g2g5g10,
       category: "colour-magic",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Ultimate showstopper with 10-minute spectacle",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-gold-500"
@@ -4433,7 +4433,7 @@ export const products = [
       price: 784, // 560 + 40%
       image: assets.shot12,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Rapid-fire 15-shot aerial barrage with thunderous bursts",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-indigo-500"
@@ -4444,7 +4444,7 @@ export const products = [
       price: 714, // 510 + 40%
       image: assets.shot25,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "Elegant green and silver aerial sequences",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-silver-500"
@@ -4455,7 +4455,7 @@ export const products = [
       price: 966, // 690 + 40%
       image: assets.shot25,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.8,
       description: "Romantic 25-shot display with heart-shaped effects",
       color: "from-green-500 to-emerald-500" // "from-pink-500 to-red-500"
@@ -4466,7 +4466,7 @@ export const products = [
       price: 980, // 700 + 40%
       image: assets.shot25,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "Vibrant multicolor 25-shot aerial extravaganza",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-purple-500"
@@ -4477,7 +4477,7 @@ export const products = [
       price: 1442, // 1030 + 40%
       image: assets.shot30,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "Dazzling 30-shot display with rainbow effects",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-blue-500"
@@ -4488,7 +4488,7 @@ export const products = [
       price: 1680, // 1200 + 40%
       image: assets.shot50,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Luxurious pearl-like bursts in silver, gold, and green",
       color: "from-green-500 to-emerald-500" // "from-silver-500 to-gold-500"
@@ -4499,7 +4499,7 @@ export const products = [
       price: 1820, // 1300 + 40%
       image: assets.shot50,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Italian-style 50-shot artistic aerial display",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-white-500"
@@ -4510,7 +4510,7 @@ export const products = [
       price: 2534, // 1810 + 40%
       image: assets.shot60,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "High-capacity 60-shot aerial spectacle",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-purple-500"
@@ -4521,7 +4521,7 @@ export const products = [
       price: 4270, // 3050 + 40%
       image: assets.shot100,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Epic 100-shot grand finale masterpiece",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-gold-500"
@@ -4532,7 +4532,7 @@ export const products = [
       price: 4900, // 3500 + 40%
       image: assets.shot120,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Timeless 120-shot professional-grade display",
       color: "from-green-500 to-emerald-500" // "from-indigo-500 to-violet-500"
@@ -4543,7 +4543,7 @@ export const products = [
       price: 9660, // 6900 + 40%
       image: assets.shot600,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Ultimate 240-shot championship-level fireworks",
       color: "from-green-500 to-emerald-500" // "from-orange-500 to-yellow-500"
@@ -4554,7 +4554,7 @@ export const products = [
       price: 24150, // 17250 + 40%
       image: assets.shot600,
       category: "multi-shot",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Regal 600-shot world-class pyrotechnic experience",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-gold-500"
@@ -4565,7 +4565,7 @@ export const products = [
       price: 97, // 69 + 40%
       image: assets.bheem,
       category: "kids-crackers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.2,
       description: "Kid-friendly Chotta Bheem themed cracker",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -4576,7 +4576,7 @@ export const products = [
       price: 109, // 78 + 40%
       image: assets.ben,
       category: "kids-crackers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Ben Ten cartoon-themed fun cracker",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-black-500"
@@ -4587,7 +4587,7 @@ export const products = [
       price: 49, // 35 + 40%
       image: assets.redbijili,
       category: "bijili-crackers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.1,
       description: "Budget pack of 50 red bijili crackers",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-pink-500"
@@ -4598,7 +4598,7 @@ export const products = [
       price: 81, // 58 + 40%
       image: assets.cartoon,
       category: "kids-crackers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.0,
       description: "Mixed cartoon-themed crackers for children",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-green-500"
@@ -4609,7 +4609,7 @@ export const products = [
       price: 563, // 402 + 40%
       image: assets.magic,
       category: "fountains",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Four magical fountains with color-changing sparks",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-blue-500"
@@ -4620,7 +4620,7 @@ export const products = [
       price: 200, // 143 + 40%
       image: assets.single,
       category: "fountains",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.2,
       description: "Classic single fountain with golden sparks",
       color: "from-green-500 to-emerald-500" // "from-amber-500 to-yellow-500"
@@ -4631,7 +4631,7 @@ export const products = [
       price: 306, // 218 + 40%
       image: assets.butterfly,
       category: "flying-toys",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "Butterfly-shaped fliers with gentle spins",
       color: "from-green-500 to-emerald-500" // "from-pink-500 to-red-500"
@@ -4642,7 +4642,7 @@ export const products = [
       price: 241, // 172 + 40%
       image: assets.photo,
       category: "camera-crackers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Bright flash crackers for photography effects",
       color: "from-green-500 to-emerald-500" // "from-white-500 to-blue-500"
@@ -4653,7 +4653,7 @@ export const products = [
       price: 548, // 391 + 40%
       image: assets.peacock,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Peacock-themed fountain with feather-like sparks",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-blue-500"
@@ -4664,7 +4664,7 @@ export const products = [
       price: 112, // 80 + 40%
       image: assets.colorbullet,
       category: "small-bombs",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.1,
       description: "Mini color bullet with loud report",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-orange-500"
@@ -4675,7 +4675,7 @@ export const products = [
       price: 525, // 375 + 40%
       image: assets.chota5,
       category: "chotta-fancy",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "Five-star shaped mini fancy fireworks",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-red-500"
@@ -4686,7 +4686,7 @@ export const products = [
       price: 649, // 463 + 40%
       image: assets.notimage,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Ground spinner with rocking motion and sparks",
       color: "from-green-500 to-emerald-500" // "from-orange-500 to-red-500"
@@ -4697,7 +4697,7 @@ export const products = [
       price: 563, // 402 + 40%
       image: assets.notimage,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Unique crackling and color effects",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-green-500"
@@ -4708,7 +4708,7 @@ export const products = [
       price: 258, // 184 + 40%
       image: assets.asrafi,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.2,
       description: "Golden coin-shaped sparklers",
       color: "from-green-500 to-emerald-500" // "from-gold-500 to-yellow-500"
@@ -4719,7 +4719,7 @@ export const products = [
       price: 402, // 287 + 40%
       image: assets.siren,
       category: "sound-crackers",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "Loud siren sound effect crackers",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-black-500"
@@ -4730,7 +4730,7 @@ export const products = [
       price: 1050, // 750 + 40%
       image: assets.topten,
       category: "fancy-items",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "Premium top-tier fountain with ten effects",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-silver-500"
@@ -4741,7 +4741,7 @@ export const products = [
       price: 868, // 620 + 40%
       image: assets.ranga,
       category: "spinners",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "Colorful whirling ground spinner",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-blue-500"
@@ -4753,7 +4753,7 @@ export const products = [
       price: 40, // 28 + 40%
       image: assets.electric7cm,
       category: "sparklers-7cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.0,
       description: "Classic 7cm electric sparklers for handheld fun",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-white-500"
@@ -4764,7 +4764,7 @@ export const products = [
       price: 47, // 33 + 40%
       image: assets.crackling7cm,
       category: "sparklers-7cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.1,
       description: "7cm sparklers with crackling sound effects",
       color: "from-green-500 to-emerald-500" // "from-gray-500 to-black-500"
@@ -4775,7 +4775,7 @@ export const products = [
       price: 54, // 38 + 40%
       image: assets.green7cm,
       category: "sparklers-7cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.2,
       description: "Vibrant green-colored 7cm sparklers",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-lime-500"
@@ -4786,7 +4786,7 @@ export const products = [
       price: 58, // 41 + 40%
       image: assets.red7cm,
       category: "sparklers-7cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.2,
       description: "Bright red 7cm sparklers for festive glow",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-pink-500"
@@ -4797,7 +4797,7 @@ export const products = [
       price: 58, // 41 + 40%
       image: assets.crackling7cm,
       category: "sparklers-7cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Dual-color 7cm sparklers (red and green)",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-green-500"
@@ -4808,7 +4808,7 @@ export const products = [
       price: 61, // 43 + 40%
       image: assets.electric10cm,
       category: "sparklers-10cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.3,
       description: "Longer 10cm electric sparklers",
       color: "from-green-500 to-emerald-500" // "from-white-500 to-blue-500"
@@ -4819,7 +4819,7 @@ export const products = [
       price: 63, // 45 + 40%
       image: assets.crackling10cm,
       category: "sparklers-10cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "10cm sparklers with loud crackling sounds",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-orange-500"
@@ -4830,7 +4830,7 @@ export const products = [
       price: 69, // 49 + 40%
       image: assets.green10cm,
       category: "sparklers-10cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Eco-friendly green sparklers with floral patterns",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
@@ -4841,7 +4841,7 @@ export const products = [
       price: 73, // 52 + 40%
       image: assets.red10cm,
       category: "sparklers-10cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.4,
       description: "10cm round-tip red sparklers",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-rose-500"
@@ -4852,7 +4852,7 @@ export const products = [
       price: 73, // 52 + 40%
       image: assets.crackling10cm,
       category: "sparklers-10cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "10cm sparklers with alternating color effects",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-red-500"
@@ -4863,7 +4863,7 @@ export const products = [
       price: 322, // 230 + 40%
       image: assets.fiveinone,
       category: "sparklers-10cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.8,
       description: "10cm sparklers with five sequential color changes",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-blue-500"
@@ -4874,7 +4874,7 @@ export const products = [
       price: 83, // 59 + 40%
       image: assets.electric12cm,
       category: "sparklers-12cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.5,
       description: "Extra-long 12cm electric sparklers",
       color: "from-green-500 to-emerald-500" // "from-white-500 to-silver-500"
@@ -4885,7 +4885,7 @@ export const products = [
       price: 93, // 66 + 40%
       image: assets.crackling12cm,
       category: "sparklers-12cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "12cm sparklers with intense crackling effects",
       color: "from-green-500 to-emerald-500" // "from-gray-500 to-black-500"
@@ -4896,7 +4896,7 @@ export const products = [
       price: 94, // 67 + 40%
       image: assets.green12cm,
       category: "sparklers-12cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.6,
       description: "12cm sparklers shaped like tiny trees",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-emerald-500"
@@ -4907,7 +4907,7 @@ export const products = [
       price: 97, // 69 + 40%
       image: assets.red12cm,
       category: "sparklers-12cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "12cm sparklers with sun-like red bursts",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-orange-500"
@@ -4918,7 +4918,7 @@ export const products = [
       price: 97, // 69 + 40%
       image: assets.crackling12cm,
       category: "sparklers-12cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.7,
       description: "12cm dual-color sparklers (gold and silver)",
       color: "from-green-500 to-emerald-500" // "from-gold-500 to-silver-500"
@@ -4929,7 +4929,7 @@ export const products = [
       price: 126, // 90 + 40%
       image: assets.electric15cm,
       category: "sparklers-15cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.8,
       description: "Super-long 15cm electric sparklers",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-white-500"
@@ -4940,7 +4940,7 @@ export const products = [
       price: 129, // 92 + 40%
       image: assets.crackling15cm,
       category: "sparklers-15cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.8,
       description: "15cm sparklers with thunderous crackles",
       color: "from-green-500 to-emerald-500" // "from-yellow-500 to-red-500"
@@ -4951,7 +4951,7 @@ export const products = [
       price: 154, // 110 + 40%
       image: assets.green15cm,
       category: "sparklers-15cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "15cm bright green sparklers",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-lime-500"
@@ -4962,7 +4962,7 @@ export const products = [
       price: 161, // 115 + 40%
       image: assets.red15cm,
       category: "sparklers-15cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "15cm deep red sparklers",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-crimson-500"
@@ -4973,7 +4973,7 @@ export const products = [
       price: 161, // 115 + 40%
       image: assets.red15cm,
       category: "sparklers-15cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "15cm half-red, half-green sparklers",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-green-500"
@@ -4984,7 +4984,7 @@ export const products = [
       price: 644, // 460 + 40%
       image: assets.fiveinone15cm,
       category: "sparklers-15cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "15cm sparklers with five dazzling color phases",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-gold-500"
@@ -4995,7 +4995,7 @@ export const products = [
       price: 126, // 90 + 40%
       image: assets.electric30cm,
       category: "sparklers-30cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.8,
       description: "Giant 30cm electric sparklers (5 per box)",
       color: "from-green-500 to-emerald-500" // "from-white-500 to-blue-500"
@@ -5006,7 +5006,7 @@ export const products = [
       price: 133, // 95 + 40%
       image: assets.crackling30cm,
       category: "sparklers-30cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "30cm crackling sparklers (5 per box)",
       color: "from-green-500 to-emerald-500" // "from-gray-500 to-black-500"
@@ -5017,7 +5017,7 @@ export const products = [
       price: 154, // 110 + 40%
       image: assets.green30cm,
       category: "sparklers-30cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "30cm green sparklers (5 per box)",
       color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
@@ -5028,7 +5028,7 @@ export const products = [
       price: 154, // 110 + 40%
       image: assets.red30cm,
       category: "sparklers-30cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 4.9,
       description: "30cm red sparklers (5 per box)",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-rose-500"
@@ -5039,7 +5039,7 @@ export const products = [
       price: 161, // 115 + 40%
       image: assets.red30cm,
       category: "sparklers-30cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "30cm dual-color sparklers (5 per box)",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-red-500"
@@ -5050,7 +5050,7 @@ export const products = [
       price: 387, // 276 + 40%
       image: assets.electric50cm,
       category: "sparklers-50cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Extra-long 50cm electric sparklers (5 per box)",
       color: "from-green-500 to-emerald-500" // "from-white-500 to-silver-500"
@@ -5061,7 +5061,7 @@ export const products = [
       price: 629, // 449 + 40%
       image: assets.crackling50cm,
       category: "sparklers-50cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "50cm sparklers with five color phases (5 per box)",
       color: "from-green-500 to-emerald-500" // "from-purple-500 to-gold-500"
@@ -5072,7 +5072,7 @@ export const products = [
       price: 629, // 449 + 40%
       image: assets.electric50cm,
       category: "sparklers-50cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Giant 75cm electric sparklers (5 per box)",
       color: "from-green-500 to-emerald-500" // "from-blue-500 to-white-500"
@@ -5083,7 +5083,7 @@ export const products = [
       price: 500, // 357 + 40%
       image: assets.redgreen50cm,
       category: "sparklers-50cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "50cm multi-color rotating sparklers",
       color: "from-green-500 to-emerald-500" // "from-red-500 to-blue-500"
@@ -5094,7 +5094,7 @@ export const products = [
       price: 868, // 620 + 40%
       image: assets.umbrella,
       category: "sparklers-50cm",
-      brand: "pothys",
+      brand: "pothis",
       rating: 5.0,
       description: "Advanced rotating sparklers with 360° effects",
       color: "from-green-500 to-emerald-500" // "from-gold-500 to-silver-500"

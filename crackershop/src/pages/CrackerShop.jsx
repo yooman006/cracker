@@ -59,8 +59,8 @@ const CrackerShop = () => {
       color: 'from-blue-500 to-purple-600'
     },
     {
-      id: 'pothys',
-      name: 'Pothys Crackers',
+      id: 'pothis',
+      name: 'Sree Pothis Crackers',
       description: 'Innovative designs with spectacular effects',
       color: 'from-red-500 to-orange-500'
     }
@@ -501,12 +501,7 @@ const CrackerShop = () => {
 
           {/* Additional Benefits */}
           <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-2 xs:gap-3 sm:gap-4 mb-6 sm:mb-8 max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg xs:rounded-xl px-2 py-2 xs:px-3 xs:py-3 sm:px-4 sm:py-3 border border-white/20 hover:border-yellow-400/50 transition-all duration-300">
-              <div className="flex items-center justify-center space-x-1 xs:space-x-2">
-                <div className="w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 bg-yellow-400 rounded-full animate-pulse"></div>
-                <span className="text-white text-[10px] xs:text-xs sm:text-sm font-medium">No Pollution</span>
-              </div>
-            </div>
+            
             <div className="bg-white/10 backdrop-blur-sm rounded-lg xs:rounded-xl px-2 py-2 xs:px-3 xs:py-3 sm:px-4 sm:py-3 border border-white/20 hover:border-yellow-400/50 transition-all duration-300">
               <div className="flex items-center justify-center space-x-1 xs:space-x-2">
                 <div className="w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 bg-green-400 rounded-full animate-pulse"></div>
