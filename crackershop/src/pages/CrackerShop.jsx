@@ -59,8 +59,8 @@ const CrackerShop = () => {
       color: 'from-blue-500 to-purple-600'
     },
     {
-      id: 'pothis',
-      name: 'Sree Pothis Crackers',
+      id: 'pothiss',
+      name: 'Sree Pothiss Crackers',
       description: 'Innovative designs with spectacular effects',
       color: 'from-red-500 to-orange-500'
     }
