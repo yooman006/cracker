@@ -91,7 +91,7 @@ export default function CrackerShopCheckout() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const generateReceipt = (orderData) => {
+const generateReceipt = (orderData) => {
     const doc = new jsPDF({ unit: "mm", format: "a4" });
     const itemsPerPage = 15; // Number of items to show per page
     const totalPages = Math.ceil(orderData.items.length / itemsPerPage);
@@ -107,15 +107,16 @@ export default function CrackerShopCheckout() {
       doc.setFont(undefined, 'bold');
       doc.text('KavithaCrackers ', 105, 30, null, null, 'center');
 
-      // Contact Info
-      doc.setFontSize(12);
-      doc.setTextColor(51, 153, 255);
-      doc.text('Sivakasi - 626123', 105, 40, null, null, 'center');
-      doc.text('Phone: +91 8903623517 | Email: seshakavitha30@gmail.com', 105, 46, null, null, 'center');
+    
 
   
       // Customer Info (only on first page)
       if (pageNumber === 1) {
+          // Contact Info
+      doc.setFontSize(12);
+      doc.setTextColor(51, 153, 255);
+      doc.text('Sivakasi - 626123', 105, 40, null, null, 'center');
+      doc.text('Phone: +91 8903623517 | Email: seshakavitha30@gmail.com', 105, 46, null, null, 'center');
            // Divider
       doc.setDrawColor(0, 153, 255);
       doc.setLineWidth(1);
@@ -153,21 +154,29 @@ export default function CrackerShopCheckout() {
       doc.setTextColor(0, 51, 153);
       doc.text('Order Items:', 20, startY);
 
+      // Get unique brands from current page items
+      const brandsOnPage = [...new Set(items.map(item => item.brand || 'No Brand'))];
+      
+      // Display brands at the top
+      let brandY = startY + 8;
+      doc.setFontSize(10);
+      doc.setTextColor(0, 102, 204);
+      doc.text(`Brands: ${brandsOnPage.join(', ')}`, 20, brandY);
+
       // Header row with solid blue fill
       doc.setFillColor(0, 153, 255);
-      doc.rect(20, startY + 5, 170, 8, 'F');
+      doc.rect(20, brandY + 5, 170, 8, 'F');
 
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(10);
-      doc.text('S.No', 25, startY + 10); // Serial Number column
-      doc.text('Item', 40, startY + 10);  // Adjusted position
-      doc.text('Brand', 95, startY + 10);
-      doc.text('Price', 140, startY + 10);
-      doc.text('Qty', 160, startY + 10);
-      doc.text('Total', 180, startY + 10);
+      doc.text('S.No', 25, brandY + 10); // Serial Number column
+      doc.text('Item', 40, brandY + 10);  // Adjusted position
+      doc.text('Price', 140, brandY + 10);
+      doc.text('Qty', 160, brandY + 10);
+      doc.text('Total', 180, brandY + 10);
 
       // Table rows with alternating background
-      let yPos = startY + 15;
+      let yPos = brandY + 15;
       items.forEach((item, index) => {
         const rowColor = index % 2 === 0 ? [245, 250, 255] : [230, 240, 255];
         doc.setFillColor(...rowColor);
@@ -182,17 +191,13 @@ export default function CrackerShopCheckout() {
         doc.text(serialNumber.toString(), 25, yPos);
 
         // Split long item names into multiple lines if needed
-        const itemNameLines = doc.splitTextToSize(item.name, 50); // Reduced width for item name
-        const brandLines = doc.splitTextToSize(item.brand || '', 30);
+        const itemNameLines = doc.splitTextToSize(item.name, 70); // Increased width since no brand column
 
         // Get the number of lines needed for this row
-        const linesNeeded = Math.max(itemNameLines.length, brandLines.length);
+        const linesNeeded = itemNameLines.length;
 
         // Draw item name (multiple lines if needed)
         doc.text(itemNameLines, 40, yPos);
-
-        // Draw brand (multiple lines if needed)
-        doc.text(brandLines, 95, yPos);
 
         // Draw price, quantity and total (aligned to first line)
         doc.text(`${Math.round(item.price.toFixed(2))}`, 140, yPos);
