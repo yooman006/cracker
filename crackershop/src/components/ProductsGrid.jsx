@@ -5,7 +5,7 @@ const ProductsGrid = ({ filteredProducts, cart, addToCart, removeFromCart, setAc
   return (
     <section id="products" className="py-8 xs:py-10 sm:py-12 md:py-16 relative z-20">
       <div className="container mx-auto px-3 xs:px-4">
-        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 xs:gap-5 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 xs:gap-4 sm:gap-5 md:gap-6">
           {filteredProducts.length > 0 ? (
             filteredProducts.map(product => (
               <ProductCard

@@ -6,25 +6,25 @@ const ProductCard = ({ product, cart, addToCart, removeFromCart }) => {
   const isDisabled = cart.length > 0 && cart[0].brand !== product.brand;
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-xl xs:rounded-2xl overflow-hidden shadow-lg xs:shadow-xl md:shadow-2xl border border-white/20 hover:border-yellow-400/50 transition-all duration-500 transform hover:scale-105 hover:rotate-1 group">
+    <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl overflow-hidden shadow-md sm:shadow-lg md:shadow-xl border border-white/20 hover:border-yellow-400/50 transition-all duration-300 transform hover:scale-102 group">
       <div className="relative overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-36 xs:h-40 sm:h-48 md:h-56 object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div className="absolute top-3 xs:top-4 right-3 xs:right-4 bg-black/70 backdrop-blur-sm rounded-full px-2 xs:px-3 py-0.5 xs:py-1 flex items-center space-x-1">
-          <Star className="h-3 w-3 xs:h-4 xs:w-4 text-yellow-400 fill-current animate-pulse" />
-          <span className="text-white text-xs xs:text-sm">{product.rating}</span>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-black/70 backdrop-blur-sm rounded-full px-1.5 sm:px-2 py-0.5 flex items-center space-x-1">
+          <Star className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-yellow-400 fill-current" />
+          <span className="text-white text-xs">{product.rating}</span>
         </div>
-        <div className={`absolute bottom-3 xs:bottom-4 left-3 xs:left-4 right-3 xs:right-4 h-1.5 xs:h-2 bg-gradient-to-r ${product.color} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse`}></div>
+        <div className={`absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3 h-1 sm:h-1.5 bg-gradient-to-r ${product.color} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
       </div>
-      <div className="p-3 xs:p-4 sm:p-5 md:p-6">
-        <h3 className="text-sm xs:text-base sm:text-lg md:text-xl font-bold text-white mb-1 xs:mb-2">{product.name}</h3>
-        <p className="text-gray-300 text-xs xs:text-sm mb-3 xs:mb-4">{product.description}</p>
+      <div className="p-2 sm:p-3 md:p-4">
+        <h3 className="text-xs sm:text-sm md:text-base font-bold text-white mb-1 line-clamp-1">{product.name}</h3>
+        <p className="text-gray-300 text-xs mb-2 sm:mb-3 line-clamp-2">{product.description}</p>
         <div className="flex items-center justify-between">
-          <span className={`text-base xs:text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}>
+          <span className={`text-sm sm:text-base md:text-lg font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}>
             ₹{Math.round(product.price)}
           </span>
 
@@ -33,22 +33,22 @@ const ProductCard = ({ product, cart, addToCart, removeFromCart }) => {
             <div className="flex items-center bg-white/20 backdrop-blur-sm rounded-full border border-white/30 overflow-hidden">
               <button
                 onClick={() => removeFromCart(product.id)}
-                className="w-8 h-8 xs:w-9 xs:h-9 bg-red-500 hover:bg-red-600 text-white font-bold flex items-center justify-center transition-all duration-300 hover:scale-105"
+                className="w-6 h-6 sm:w-7 sm:h-7 bg-red-500 hover:bg-red-600 text-white font-bold flex items-center justify-center transition-all duration-200"
                 disabled={isDisabled}
               >
-                <Minus className="w-3 h-3 xs:w-4 xs:h-4 stroke-2" />
+                <Minus className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-2" />
               </button>
 
-              <span className="px-3 xs:px-4 py-2 text-white font-semibold text-sm xs:text-base min-w-[2rem] text-center">
+              <span className="px-1.5 sm:px-2 py-1 text-white font-semibold text-xs sm:text-sm min-w-[1.5rem] text-center">
                 {cartItem.quantity}
               </span>
 
               <button
                 onClick={() => addToCart(product)}
-                className="w-8 h-8 xs:w-9 xs:h-9 bg-green-500 hover:bg-green-600 text-white font-bold flex items-center justify-center transition-all duration-300 hover:scale-105"
+                className="w-6 h-6 sm:w-7 sm:h-7 bg-green-500 hover:bg-green-600 text-white font-bold flex items-center justify-center transition-all duration-200"
                 disabled={isDisabled}
               >
-                <Plus className="w-3 h-3 xs:w-4 xs:h-4 stroke-2" />
+                <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3 stroke-2" />
               </button>
             </div>
           ) : (
@@ -56,11 +56,10 @@ const ProductCard = ({ product, cart, addToCart, removeFromCart }) => {
             <button
               onClick={() => addToCart(product)}
               disabled={isDisabled}
-              className={`bg-gradient-to-r ${product.color} text-black px-2 py-1.5 xs:px-3 xs:py-2 sm:px-4 sm:py-2 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center space-x-1 xs:space-x-2 text-xs xs:text-sm sm:text-base ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`bg-gradient-to-r ${product.color} text-black px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-full hover:shadow transition-all duration-200 flex items-center space-x-1 text-xs sm:text-sm ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              <Plus className="h-3 w-3 xs:h-4 xs:w-4" />
-              <span className="hidden xs:inline">Add to Cart</span>
-              <span className="xs:hidden">Add</span>
+              <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+              <span className="hidden sm:inline">Add</span>
             </button>
           )}
         </div>

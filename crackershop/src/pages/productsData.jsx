@@ -3782,7 +3782,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.9,
       description: "Premium jolly wheel spinner",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
+      color: "from-green-500 to-emerald-500" 
     },
 
     // FLOWER POTS (11-13)
@@ -3999,7 +3999,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.4,
       description: "Twinkling silver star effect",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 30,
@@ -4010,7 +4010,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.5,
       description: "Twinkling silver star effect",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 31,
@@ -4021,7 +4021,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.4,
       description: "Twinkling silver star effect",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 32,
@@ -4032,7 +4032,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.6,
       description: "Twinkling silver star effect",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 33,
@@ -4043,7 +4043,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.7,
       description: "Twinkling silver star effect",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
+      color: "from-green-500 to-emerald-500" 
     },
 
     // BIJILI CRACKERS (42-43)
@@ -4112,7 +4112,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.7,
       description: "Dramatic multi-shot aerial display",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 40,
@@ -4225,7 +4225,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.1,
       description: "Long-lasting fountain candle with bright sparks",
-      color: "from-green-500 to-emerald-500" // "from-white-500 to-silver-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 50,
@@ -4236,7 +4236,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.6,
       description: "Drone-shaped firework with aerial spins",
-      color: "from-green-500 to-emerald-500" // "from-gray-500 to-black-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 51,
@@ -4247,7 +4247,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.4,
       description: "Helicopter-shaped spinner with colorful trails",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-lime-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 52,
@@ -4557,7 +4557,7 @@ export const products = [
       brand: "pothiss",
       rating: 5.0,
       description: "Regal 600-shot world-class pyrotechnic experience",
-      color: "from-green-500 to-emerald-500" // "from-purple-500 to-gold-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 80,
@@ -4645,7 +4645,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.3,
       description: "Bright flash crackers for photography effects",
-      color: "from-green-500 to-emerald-500" // "from-white-500 to-blue-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 88,
@@ -4756,7 +4756,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.0,
       description: "Classic 7cm electric sparklers for handheld fun",
-      color: "from-green-500 to-emerald-500" // "from-blue-500 to-white-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 98,
@@ -4767,7 +4767,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.1,
       description: "7cm sparklers with crackling sound effects",
-      color: "from-green-500 to-emerald-500" // "from-gray-500 to-black-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 99,
@@ -4778,7 +4778,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.2,
       description: "Vibrant green-colored 7cm sparklers",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-lime-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 100,
@@ -4800,7 +4800,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.3,
       description: "Dual-color 7cm sparklers (red and green)",
-      color: "from-green-500 to-emerald-500" // "from-red-500 to-green-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 102,
@@ -4811,7 +4811,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.3,
       description: "Longer 10cm electric sparklers",
-      color: "from-green-500 to-emerald-500" // "from-white-500 to-blue-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 103,
@@ -4833,7 +4833,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.5,
       description: "Eco-friendly green sparklers with floral patterns",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 105,
@@ -4844,7 +4844,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.4,
       description: "10cm round-tip red sparklers",
-      color: "from-green-500 to-emerald-500" // "from-red-500 to-rose-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 106,
@@ -4877,7 +4877,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.5,
       description: "Extra-long 12cm electric sparklers",
-      color: "from-green-500 to-emerald-500" // "from-white-500 to-silver-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 109,
@@ -4888,7 +4888,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.6,
       description: "12cm sparklers with intense crackling effects",
-      color: "from-green-500 to-emerald-500" // "from-gray-500 to-black-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 110,
@@ -4932,7 +4932,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.8,
       description: "Super-long 15cm electric sparklers",
-      color: "from-green-500 to-emerald-500" // "from-blue-500 to-white-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 114,
@@ -4954,7 +4954,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.9,
       description: "15cm bright green sparklers",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-lime-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 116,
@@ -4965,7 +4965,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.9,
       description: "15cm deep red sparklers",
-      color: "from-green-500 to-emerald-500" // "from-red-500 to-crimson-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 117,
@@ -4976,7 +4976,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.9,
       description: "15cm half-red, half-green sparklers",
-      color: "from-green-500 to-emerald-500" // "from-red-500 to-green-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 118,
@@ -4987,7 +4987,7 @@ export const products = [
       brand: "pothiss",
       rating: 5.0,
       description: "15cm sparklers with five dazzling color phases",
-      color: "from-green-500 to-emerald-500" // "from-purple-500 to-gold-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 119,
@@ -4998,7 +4998,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.8,
       description: "Giant 30cm electric sparklers (5 per box)",
-      color: "from-green-500 to-emerald-500" // "from-white-500 to-blue-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 120,
@@ -5009,7 +5009,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.9,
       description: "30cm crackling sparklers (5 per box)",
-      color: "from-green-500 to-emerald-500" // "from-gray-500 to-black-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 121,
@@ -5020,7 +5020,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.9,
       description: "30cm green sparklers (5 per box)",
-      color: "from-green-500 to-emerald-500" // "from-green-500 to-teal-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 122,
@@ -5031,7 +5031,7 @@ export const products = [
       brand: "pothiss",
       rating: 4.9,
       description: "30cm red sparklers (5 per box)",
-      color: "from-green-500 to-emerald-500" // "from-red-500 to-rose-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 123,
@@ -5053,7 +5053,7 @@ export const products = [
       brand: "pothiss",
       rating: 5.0,
       description: "Extra-long 50cm electric sparklers (5 per box)",
-      color: "from-green-500 to-emerald-500" // "from-white-500 to-silver-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 125,
@@ -5064,7 +5064,7 @@ export const products = [
       brand: "pothiss",
       rating: 5.0,
       description: "50cm sparklers with five color phases (5 per box)",
-      color: "from-green-500 to-emerald-500" // "from-purple-500 to-gold-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 126,
@@ -5075,7 +5075,7 @@ export const products = [
       brand: "pothiss",
       rating: 5.0,
       description: "Giant 75cm electric sparklers (5 per box)",
-      color: "from-green-500 to-emerald-500" // "from-blue-500 to-white-500"
+      color: "from-green-500 to-emerald-500" 
     },
     {
       id: 127,
