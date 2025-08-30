@@ -1,17 +1,19 @@
 import React from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { BRANDS } from '../constants/appConstants';
 
-const CartSidebar = ({ 
-  isCartOpen, 
-  setIsCartOpen, 
-  cart, 
-  brands, 
-  addToCart, 
-  removeFromCart, 
-  getTotalPrice 
-}) => {
+const CartSidebar = () => {
   const navigate = useNavigate();
+  const { 
+    cart, 
+    isCartOpen, 
+    setIsCartOpen, 
+    addToCart, 
+    removeFromCart, 
+    getTotalPrice 
+  } = useCart();
 
   const handleCheckout = () => {
     // Additional check (though this shouldn't be needed if addToCart is properly implemented)
@@ -21,7 +23,12 @@ const CartSidebar = ({
       return;
     }
     setIsCartOpen(false);
-    navigate('/checkout', { state: { cart } });
+    navigate('/checkout', { 
+      state: { 
+        cart,
+        fromCart: true
+      } 
+    });
   };
 
   return (
@@ -33,7 +40,7 @@ const CartSidebar = ({
             <h3 className="text-lg xs:text-xl sm:text-2xl font-bold text-white">Shopping Cart</h3>
             {cart.length > 0 && (
               <div className="text-xs xs:text-sm text-yellow-400">
-                Brand: {brands.find(b => b.id === cart[0]?.brand)?.name}
+                Brand: {BRANDS.find(b => b.id === cart[0]?.brand)?.name}
               </div>
             )}
             <button
@@ -46,7 +53,18 @@ const CartSidebar = ({
 
           <div className="flex-1 overflow-y-auto">
             {cart.length === 0 ? (
-              <p className="text-gray-400 text-center py-6 xs:py-8">Your cart is empty</p>
+              <div className="text-center py-8">
+                <p className="text-gray-400 mb-4">Your cart is empty</p>
+                <button
+                  onClick={() => {
+                    setIsCartOpen(false);
+                    navigate('/');
+                  }}
+                  className="text-yellow-400 hover:text-yellow-300 font-medium"
+                >
+                  Start Shopping
+                </button>
+              </div>
             ) : (
               <div className="space-y-3 xs:space-y-4">
                 {cart.map(item => (
@@ -87,12 +105,23 @@ const CartSidebar = ({
                 <span className="text-white text-sm xs:text-base sm:text-lg">Total:</span>
                 <span className="text-yellow-400 text-base xs:text-lg sm:text-xl md:text-2xl font-bold">₹{Math.round(getTotalPrice())}</span>
               </div>
-              <button
-                onClick={handleCheckout}
-                className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-2 xs:py-2.5 sm:py-3 rounded-full font-medium xs:font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm xs:text-base"
-              >
-                Proceed to Checkout
-              </button>
+              
+              {/* Action buttons */}
+              <div className="space-y-2">
+                <button
+                  onClick={handleCheckout}
+                  className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-2 xs:py-2.5 sm:py-3 rounded-full font-medium xs:font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm xs:text-base"
+                >
+                  Proceed to Checkout
+                </button>
+                
+                <button
+                  onClick={() => setIsCartOpen(false)}
+                  className="w-full bg-white/10 hover:bg-white/20 text-white py-2 xs:py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 text-sm xs:text-base border border-white/20"
+                >
+                  Continue Shopping
+                </button>
+              </div>
             </div>
           )}
         </div>

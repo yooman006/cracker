@@ -1,7 +1,11 @@
 import React from 'react';
 import ProductCard from './ProductCard';
+import { useCart } from '../context/CartContext';
 
-const ProductsGrid = ({ filteredProducts, cart, addToCart, removeFromCart, setActiveCategory }) => {
+const ProductsGrid = ({ filteredProducts, setActiveCategory }) => {
+  // Get cart functionality from CartContext
+  const { cart, addToCart, removeFromCart } = useCart();
+
   return (
     <section id="products" className="py-8 xs:py-10 sm:py-12 md:py-16 relative z-20">
       <div className="container mx-auto px-3 xs:px-4">

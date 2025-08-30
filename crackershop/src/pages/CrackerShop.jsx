@@ -13,27 +13,45 @@ import Footer from '../components/Footer';
 import AnimatedBackground from '../components/AnimatedBackground';
 import FloatingArrowButton from '../components/FloatingArrowButton';
 
-// Import hooks and utilities
-import { useCart } from '../hooks/useCart';
+// Import CartContext instead of custom hook
+import { useCart } from '../context/CartContext';
 import { scrollToProducts, scrollToBrands, scrollToFooter } from '../utils/scrollUtils';
 import { CATEGORIES, BRANDS } from '../constants/appConstants';
 
 const CrackerShop = () => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState(null);
 
-  // Use custom cart hook
+  // Use CartContext - this provides all cart functionality with persistence
   const {
     cart,
     addToCart,
     removeFromCart,
     getTotalPrice,
-    getTotalItems,
-    getUniqueProductCount
-  } = useCart(BRANDS);
+    getTotalItems
+  } = useCart();
+
+  // Helper function to get unique product count (similar to your previous implementation)
+  const getUniqueProductCount = () => {
+    return cart.length;
+  };
+
+  // Auto-select brand based on cart contents when component mounts
+  useEffect(() => {
+    if (cart.length > 0 && !selectedBrand) {
+      // Get the brand from the first item in cart
+      const cartBrand = cart[0].brand;
+      if (cartBrand) {
+        setSelectedBrand(cartBrand);
+        // Optional: scroll to products section after a short delay
+        setTimeout(() => {
+          scrollToProducts();
+        }, 100);
+      }
+    }
+  }, [cart, selectedBrand]);
 
   // Check for mobile viewport
   useEffect(() => {
@@ -113,19 +131,17 @@ const CrackerShop = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-900 to-red-900 relative overflow-hidden">
       {/* Animated Background Effects */}
       <AnimatedBackground isMobile={isMobile} />
+      
       {/* Header */}
       <Header
-        isCartOpen={isCartOpen}
-        setIsCartOpen={setIsCartOpen}
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
-        getTotalItems={getTotalItems}
-        getUniqueProductCount={getUniqueProductCount}
         selectedBrand={selectedBrand}
         scrollToBrands={scrollToBrands}
         scrollToProducts={scrollToProducts}
         scrollToFooter={scrollToFooter}
       />
+      
       {/* Hero Section */}
       <HeroSection
         selectedBrand={selectedBrand}
@@ -153,9 +169,6 @@ const CrackerShop = () => {
 
           <ProductsGrid
             filteredProducts={filteredProducts}
-            cart={cart}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
             setActiveCategory={setActiveCategory}
           />
         </>
@@ -167,16 +180,8 @@ const CrackerShop = () => {
         scrollToFooter={scrollToFooter}
       />
 
-      {/* Cart Sidebar */}
-      <CartSidebar
-        isCartOpen={isCartOpen}
-        setIsCartOpen={setIsCartOpen}
-        cart={cart}
-        brands={BRANDS}
-        addToCart={addToCart}
-        removeFromCart={removeFromCart}
-        getTotalPrice={getTotalPrice}
-      />
+      {/* Cart Sidebar - Now managed by CartContext */}
+      <CartSidebar />
 
       {/* Floating Arrow Button */}
       <FloatingArrowButton />

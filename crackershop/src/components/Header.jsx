@@ -1,18 +1,28 @@
 import React from 'react';
 import { ShoppingCart, Sparkles, Menu, X } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 const Header = ({
-  isCartOpen,
-  setIsCartOpen,
   isMobileMenuOpen,
   setIsMobileMenuOpen,
-  getTotalItems,
-  getUniqueProductCount,
   selectedBrand,
   scrollToBrands,
   scrollToProducts,
   scrollToFooter
 }) => {
+  // Get cart functionality from CartContext
+  const { 
+    cart, 
+    isCartOpen, 
+    setIsCartOpen, 
+    getTotalItems 
+  } = useCart();
+
+  // Helper function to get unique product count
+  const getUniqueProductCount = () => {
+    return cart.length;
+  };
+
   const handleProductsClick = () => {
     if (!selectedBrand) {
       scrollToBrands();
