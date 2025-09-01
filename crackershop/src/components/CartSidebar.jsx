@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { BRANDS } from '../constants/appConstants';
 
-const CartSidebar = () => {
+const CartSidebar = ({ discountPercentage = 0.50 }) => {
   const navigate = useNavigate();
   const { 
     cart, 
@@ -14,6 +14,22 @@ const CartSidebar = () => {
     removeFromCart, 
     getTotalPrice 
   } = useCart();
+
+  // Calculate totals with discount
+  const calculateTotals = () => {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const discountAmount = subtotal * discountPercentage;
+    const total = subtotal - discountAmount;
+    
+    return { subtotal, discountAmount, total };
+  };
+
+  const totals = calculateTotals();
+
+  // Calculate discounted price for individual items
+  const getDiscountedPrice = (originalPrice) => {
+    return originalPrice - (originalPrice * discountPercentage);
+  };
 
   const handleCheckout = () => {
     // Additional check (though this shouldn't be needed if addToCart is properly implemented)
@@ -39,16 +55,23 @@ const CartSidebar = () => {
           <div className="flex items-center justify-between mb-4 xs:mb-5 sm:mb-6">
             <h3 className="text-lg xs:text-xl sm:text-2xl font-bold text-white">Shopping Cart</h3>
             {cart.length > 0 && (
-              <div className="text-xs xs:text-sm text-yellow-400">
+              <div className="text-xs xs:text-sm text-emerald-400">
                 Brand: {BRANDS.find(b => b.id === cart[0]?.brand)?.name}
               </div>
             )}
             <button
               onClick={() => setIsCartOpen(false)}
-              className="text-white hover:text-yellow-400 bg-white/10 hover:bg-white/20 p-1 rounded-full transition-all duration-300 text-xl xs:text-2xl flex items-center justify-center w-8 h-8 xs:w-9 xs:h-9"
+              className="text-white hover:text-emerald-400 bg-white/10 hover:bg-white/20 p-1 rounded-full transition-all duration-300 text-xl xs:text-2xl flex items-center justify-center w-8 h-8 xs:w-9 xs:h-9"
             >
               ×
             </button>
+          </div>
+
+          {/* Discount Banner */}
+          <div className="bg-emerald-500/20 border border-emerald-400/30 rounded-lg p-2 mb-4">
+            <p className="text-emerald-300 text-xs xs:text-sm font-medium text-center">
+              🎉 {Math.round(discountPercentage * 100)}% OFF on all items!
+            </p>
           </div>
 
           <div className="flex-1 overflow-y-auto">
@@ -60,57 +83,90 @@ const CartSidebar = () => {
                     setIsCartOpen(false);
                     navigate('/');
                   }}
-                  className="text-yellow-400 hover:text-yellow-300 font-medium"
+                  className="text-emerald-400 hover:text-emerald-300 font-medium"
                 >
                   Start Shopping
                 </button>
               </div>
             ) : (
               <div className="space-y-3 xs:space-y-4">
-                {cart.map(item => (
-                  <div key={item.id} className="bg-white/10 rounded-lg p-3 xs:p-4 flex items-center space-x-3 xs:space-x-4">
-                    <img src={item.image} alt={item.name} className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 object-cover rounded-lg" />
-                    <div className="flex-1">
-                      <h4 className="text-white font-medium text-xs xs:text-sm sm:text-base">{item.name}</h4>
-                      <p className="text-yellow-400 text-xs xs:text-sm sm:text-base">₹{Math.round(item.price)}</p>
-                    </div>
-                    <div className="flex items-center space-x-1.5 xs:space-x-2">
-                      <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="w-6 h-6 sm:w-7 sm:h-7 bg-yellow-500 hover:bg-yellow-600 text-black font-bold rounded-full flex items-center justify-center shadow-md shadow-yellow-500/30 transition-all"
-                      >
-                        <Minus className="w-3 h-3 stroke-2" />
-                      </button>
+                {cart.map(item => {
+                  const discountedPrice = getDiscountedPrice(item.price);
+                  const originalPrice = item.price;
+                  
+                  return (
+                    <div key={item.id} className="bg-white/10 rounded-lg p-3 xs:p-4 flex items-center space-x-3 xs:space-x-4">
+                      <img src={item.image} alt={item.name} className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 object-cover rounded-lg" />
+                      <div className="flex-1">
+                        <h4 className="text-white font-medium text-xs xs:text-sm sm:text-base">{item.name}</h4>
+                        <div className="flex items-center space-x-2">
+                          {/* Discounted Price */}
+                          <p className="text-emerald-400 text-xs xs:text-sm sm:text-base font-bold">
+                            ₹{Math.round(discountedPrice)}
+                          </p>
+                          {/* Original Price with strikethrough */}
+                          <p className="text-gray-500 text-[10px] xs:text-xs line-through">
+                            ₹{Math.round(originalPrice)}
+                          </p>
+                        </div>
+                        {/* Individual item total */}
+                        <p className="text-emerald-300 text-[10px] xs:text-xs">
+                          Total: ₹{Math.round(discountedPrice * item.quantity)}
+                        </p>
+                      </div>
+                      <div className="flex items-center space-x-1.5 xs:space-x-2">
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="w-6 h-6 sm:w-7 sm:h-7 bg-emerald-500 hover:bg-emerald-600 text-black font-bold rounded-full flex items-center justify-center shadow-md shadow-emerald-500/30 transition-all"
+                        >
+                          <Minus className="w-3 h-3 stroke-2" />
+                        </button>
 
-                      <span className="text-white w-5 xs:w-6 sm:w-7 text-center text-xs xs:text-sm sm:text-base">
-                        {item.quantity}
-                      </span>
+                        <span className="text-white w-5 xs:w-6 sm:w-7 text-center text-xs xs:text-sm sm:text-base">
+                          {item.quantity}
+                        </span>
 
-                      <button
-                        onClick={() => addToCart(item)}
-                        className="w-6 h-6 sm:w-7 sm:h-7 bg-yellow-500 hover:bg-yellow-600 text-black font-bold rounded-full flex items-center justify-center shadow-md shadow-yellow-500/30 transition-all"
-                      >
-                        <Plus className="w-3 h-3 stroke-2" />
-                      </button>
+                        <button
+                          onClick={() => addToCart(item)}
+                          className="w-6 h-6 sm:w-7 sm:h-7 bg-emerald-500 hover:bg-emerald-600 text-black font-bold rounded-full flex items-center justify-center shadow-md shadow-emerald-500/30 transition-all"
+                        >
+                          <Plus className="w-3 h-3 stroke-2" />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
 
           {cart.length > 0 && (
             <div className="border-t border-white/20 pt-4 xs:pt-5 sm:pt-6">
-              <div className="flex justify-between items-center mb-3 xs:mb-4">
-                <span className="text-white text-sm xs:text-base sm:text-lg">Total:</span>
-                <span className="text-yellow-400 text-base xs:text-lg sm:text-xl md:text-2xl font-bold">₹{Math.round(getTotalPrice())}</span>
+              {/* Order Summary */}
+              <div className="bg-white/5 rounded-lg p-3 mb-4 space-y-2">
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-gray-300">Subtotal:</span>
+                  <span className="text-gray-300">₹{Math.round(totals.subtotal)}</span>
+                </div>
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-emerald-400">Discount ({Math.round(discountPercentage * 100)}%):</span>
+                  <span className="text-emerald-400">-₹{Math.round(totals.discountAmount)}</span>
+                </div>
+                <div className="border-t border-white/20 pt-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white text-sm xs:text-base sm:text-lg font-semibold">Total:</span>
+                    <span className="text-emerald-400 text-base xs:text-lg sm:text-xl md:text-2xl font-bold">
+                      ₹{Math.round(totals.total)}
+                    </span>
+                  </div>
+                </div>
               </div>
               
               {/* Action buttons */}
               <div className="space-y-2">
                 <button
                   onClick={handleCheckout}
-                  className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-2 xs:py-2.5 sm:py-3 rounded-full font-medium xs:font-semibold hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm xs:text-base"
+                  className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-black py-2 xs:py-2.5 sm:py-3 rounded-full font-medium xs:font-semibold hover:from-emerald-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm xs:text-base"
                 >
                   Proceed to Checkout
                 </button>
@@ -121,6 +177,13 @@ const CartSidebar = () => {
                 >
                   Continue Shopping
                 </button>
+              </div>
+
+              {/* Savings highlight */}
+              <div className="mt-3 text-center">
+                <p className="text-emerald-300 text-xs">
+                  🎉 You're saving ₹{Math.round(totals.discountAmount)} on this order!
+                </p>
               </div>
             </div>
           )}
