@@ -1,7 +1,53 @@
 // components/OrdersList.jsx
-import { User, Eye } from 'lucide-react';
+import { User, Eye, CheckCircle, Circle } from 'lucide-react';
+import { useState } from 'react';
 
-export default function OrdersList({ orders, onOrderClick, loading }) {
+export default function OrdersList({ orders, onOrderClick, loading, onDeliveryStatusChange }) {
+  const [updatingOrders, setUpdatingOrders] = useState(new Set());
+
+  const handleDeliveryToggle = async (e, orderId, currentStatus) => {
+    e.stopPropagation(); // Prevent triggering the row click
+    
+    setUpdatingOrders(prev => new Set(prev).add(orderId));
+    
+    try {
+      await onDeliveryStatusChange(orderId, !currentStatus);
+    } catch (error) {
+      console.error('Failed to update delivery status:', error);
+    } finally {
+      setUpdatingOrders(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(orderId);
+        return newSet;
+      });
+    }
+  };
+
+  const DeliveryCheckbox = ({ order }) => {
+    const isUpdating = updatingOrders.has(order._id);
+    
+    return (
+      <button
+        onClick={(e) => handleDeliveryToggle(e, order._id, order.isDelivered)}
+        disabled={isUpdating}
+        className={`flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+          order.isDelivered
+            ? 'bg-green-100 text-green-800 hover:bg-green-200'
+            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+        } ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+      >
+        {isUpdating ? (
+          <div className="animate-spin rounded-full h-3 w-3 border border-gray-400 border-t-transparent" />
+        ) : order.isDelivered ? (
+          <CheckCircle className="h-3 w-3" />
+        ) : (
+          <Circle className="h-3 w-3" />
+        )}
+        <span>{order.isDelivered ? 'Delivered' : 'Pending'}</span>
+      </button>
+    );
+  };
+
   return (
     <>
       {/* Desktop View */}
@@ -15,6 +61,7 @@ export default function OrdersList({ orders, onOrderClick, loading }) {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Discount</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delivery Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
@@ -36,7 +83,7 @@ export default function OrdersList({ orders, onOrderClick, loading }) {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      {order.totals.total.toFixed(2)}
+                      ₹{order.totals.total.toFixed(2)}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -51,10 +98,18 @@ export default function OrdersList({ orders, onOrderClick, loading }) {
                       )}
                     </div>
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <DeliveryCheckbox order={order} />
+                    {order.deliveredAt && (
+                      <div className="text-xs text-gray-500 mt-1">
+                        {new Date(order.deliveredAt).toLocaleDateString()}
+                      </div>
+                    )}
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button
                       onClick={() => onOrderClick(order)}
-                      className="text-blue-600 hover:text-blue-900 mr-4"
+                      className="text-blue-600 hover:text-blue-900"
                     >
                       View Details
                     </button>
@@ -71,14 +126,14 @@ export default function OrdersList({ orders, onOrderClick, loading }) {
         <div className="divide-y divide-gray-200">
           {orders.map((order) => (
             <div key={order._id} className="p-4 hover:bg-blue-50 transition-colors duration-150">
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start mb-3">
                 <div className="flex items-center min-w-0">
                   <div className="h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center mr-3 flex-shrink-0">
                     <User className="h-5 w-5 text-blue-600" />
                   </div>
                   <div className="min-w-0">
                     <div className="text-sm font-semibold text-gray-900 truncate">
-                      {order.customer.firstName}{order.customer.lastName}
+                      {order.customer.firstName} {order.customer.lastName}
                     </div>
                   </div>
                 </div>
@@ -91,14 +146,23 @@ export default function OrdersList({ orders, onOrderClick, loading }) {
                 </button>
               </div>
 
-              <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
+              <div className="flex justify-between items-center mb-2">
+                <DeliveryCheckbox order={order} />
+                {order.deliveredAt && (
+                  <div className="text-xs text-gray-500">
+                    Delivered: {new Date(order.deliveredAt).toLocaleDateString()}
+                  </div>
+                )}
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 text-sm">
                 <div className="truncate">
                   <span className="text-gray-500">Order ID:</span>
                   <span className="ml-1 font-medium">{order._id.slice(-8)}</span>
                 </div>
                 <div className="text-right truncate">
                   <span className="text-gray-500">Total:</span>
-                  <span className="ml-1 font-medium">{order.totals.total.toFixed(2)}</span>
+                  <span className="ml-1 font-medium">₹{order.totals.total.toFixed(2)}</span>
                 </div>
                 <div className="truncate">
                   <span className="text-gray-500">Date:</span>

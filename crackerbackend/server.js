@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const orderRoutes = require('./routes/orderRoutes');
-const productRoutes = require('./routes/productRoutes');
+
 
 const app = express();
 
@@ -17,7 +17,7 @@ connectDB();
 
 // Routes
 app.use('/api/orders', orderRoutes);
-app.use('/api/products', productRoutes);
+
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

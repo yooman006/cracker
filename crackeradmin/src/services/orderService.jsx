@@ -1,51 +1,88 @@
 // services/orderService.js
+const API_BASE_URL =  'https://sivakasi-crackers-shop-backend.azurewebsites.net/api';
+
 export const orderService = {
+  // Existing methods
   async fetchAllOrders() {
-    const response = await fetch('https://sivakasi-crackers-shop-backend.azurewebsites.net/api/orders');
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    if (data.success) {
-      const processedOrders = data.orders.map(order => ({
-        ...order,
-        totals: {
-          ...order.totals,
-          discountAmount: order.totals.discountAmount || 0,
-          discountPercentage: order.totals.discountPercentage || 0
-        }
-      })).sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
-
-      return processedOrders;
-    } else {
-      throw new Error(data.error || 'Failed to fetch orders');
+    try {
+      const response = await fetch(`${API_BASE_URL}/orders`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch orders');
+      }
+      const data = await response.json();
+      return data.orders || [];
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+      throw error;
     }
   },
 
   async fetchOrderById(orderId) {
-    const response = await fetch(`https://sivakasi-crackers-shop-backend.azurewebsites.net/api/orders/${orderId}`);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+      const response = await fetch(`${API_BASE_URL}/orders/${orderId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch order details');
+      }
+      const data = await response.json();
+      return data.order;
+    } catch (error) {
+      console.error('Error fetching order details:', error);
+      throw error;
     }
+  },
 
-    const data = await response.json();
+  async createOrder(orderData) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to create order');
+      }
+      
+      const data = await response.json();
+      return data.order;
+    } catch (error) {
+      console.error('Error creating order:', error);
+      throw error;
+    }
+  },
 
-    if (data.success) {
-      const orderWithDiscount = {
-        ...data.order,
-        totals: {
-          ...data.order.totals,
-          discountAmount: data.order.totals.discountAmount || 0,
-          discountPercentage: data.order.totals.discountPercentage || 0
-        }
+  // New method for updating delivery status
+  async updateDeliveryStatus(orderId, isDelivered, deliveredBy = null) {
+    try {
+      const requestBody = {
+        isDelivered: isDelivered
       };
-      return orderWithDiscount;
-    } else {
-      throw new Error(data.error || 'Failed to fetch order');
+      
+      // Optional: include who marked it as delivered
+      if (deliveredBy) {
+        requestBody.deliveredBy = deliveredBy;
+      }
+
+      const response = await fetch(`${API_BASE_URL}/orders/${orderId}/delivery-status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to update delivery status');
+      }
+      
+      const data = await response.json();
+      return data.order;
+    } catch (error) {
+      console.error('Error updating delivery status:', error);
+      throw error;
     }
   }
 };

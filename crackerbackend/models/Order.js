@@ -26,9 +26,12 @@ const OrderSchema = new mongoose.Schema({
     discountAmount: { type: Number, default: 0 }, // You can still store the amount if needed
     total: { type: Number, required: true }
   },
-
   orderDate: { type: Date, default: Date.now },
-  status: { type: String, default: '' }
+  status: { type: String, default: '' },
+  // New delivery status fields
+  isDelivered: { type: Boolean, default: false },
+  deliveredAt: { type: Date },
+  deliveredBy: { type: String } // Optional: store who marked it as delivered
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', OrderSchema);
