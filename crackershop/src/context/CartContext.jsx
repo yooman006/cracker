@@ -14,18 +14,53 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Load cart from memory on component mount
+  // Enhanced cart persistence
   useEffect(() => {
-    const savedCart = window.cartData || [];
+    // Try to load from multiple sources
+    const savedCart = window.cartData || 
+                     (window.parent && window.parent.cartData) || 
+                     [];
+    
     if (savedCart.length > 0) {
       setCart(savedCart);
     }
   }, []);
 
-  // Save cart to memory whenever it changes
+  // Enhanced save to multiple locations
   useEffect(() => {
     window.cartData = cart;
+    // Also try to save to parent window if available
+    if (window.parent && window.parent !== window) {
+      window.parent.cartData = cart;
+    }
+    // Store in a more persistent way using window name as backup
+    if (cart.length > 0) {
+      try {
+        window.name = JSON.stringify({ cartData: cart, timestamp: Date.now() });
+      } catch (e) {
+        // Fallback if JSON.stringify fails
+        console.warn('Could not persist cart data');
+      }
+    }
   }, [cart]);
+
+  // Try to restore from window.name on mount
+  useEffect(() => {
+    try {
+      if (window.name && cart.length === 0) {
+        const stored = JSON.parse(window.name);
+        if (stored.cartData && Array.isArray(stored.cartData)) {
+          // Check if data is not too old (less than 24 hours)
+          const isRecent = Date.now() - stored.timestamp < 24 * 60 * 60 * 1000;
+          if (isRecent) {
+            setCart(stored.cartData);
+          }
+        }
+      }
+    } catch (e) {
+      // Ignore JSON parse errors
+    }
+  }, []);
 
   const addToCart = (product) => {
     setCart(prevCart => {
@@ -62,6 +97,10 @@ export const CartProvider = ({ children }) => {
   const clearCart = () => {
     setCart([]);
     window.cartData = [];
+    window.name = '';
+    if (window.parent && window.parent !== window) {
+      window.parent.cartData = [];
+    }
   };
 
   const getTotalPrice = () => {
