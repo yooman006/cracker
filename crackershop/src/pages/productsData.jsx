@@ -3,6 +3,117 @@ import { assets } from "../assets/assets";
 
 export const products = [
 
+
+      {
+      "id": 22,
+      "name": "6.5 Cm Sparrow",
+      "price": 26.6,
+      "image": assets.sparrow,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
+    {
+      "id": 23,
+      "name": "9 Cm Lakshmi",
+      "price": 43.7,
+      "image": assets.lakshmi9cm,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
+    {
+      "id": 24,
+      "name": "9 Cm Peacock",
+      "price": 43.7,
+      "image": assets.peacock9cm,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
+    {
+      "id": 25,
+      "name": "10 Cm Krishna",
+      "price": 60.8,
+      "image": assets.krishna10cm,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
+    {
+      "id": 26,
+      "name": "10 Cm Lakshmi",
+      "price": 60.8,
+      "image": assets.lakshmi9cm,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
+    {
+      "id": 27,
+      "name": "500/5 Hitler - 10 C.M.",
+      "price": 60.8,
+      "image": assets.hitler,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
+    {
+      "id": 28,
+      "name": "10 cm Peacock",
+      "price": 60.8,
+      "image": assets.peacock9cm,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
+    {
+      "id": 29,
+      "name": "10 Cm Hercules Deluxe",
+      "price": 79.8,
+      "image": assets.hercules,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
+    {
+      "id": 30,
+      "name": "9 cm Two Sound",
+      "price": 64.6,
+      "image": assets.twosound1,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
+    {
+      "id": 31,
+      "name": "Two Sound Giant",
+      "price": 87.4,
+      "image": assets.twosoundgaint,
+      "category": "sound-crackers",
+      "brand": "standard",
+      "rating": 4.2,
+      "description": "5 Pcs in one packet",
+      "color": "from-green-500 to-emerald-500"
+    },
     {
       "id": 1,
       "name": "7 CM Bobby Gold Sparklers",
@@ -232,116 +343,6 @@ export const products = [
       "brand": "standard",
       "rating": 4.2,
       "description": "10 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 22,
-      "name": "6.5 Cm Sparrow",
-      "price": 26.6,
-      "image": assets.sparrow,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 23,
-      "name": "9 Cm Lakshmi",
-      "price": 43.7,
-      "image": assets.lakshmi9cm,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 24,
-      "name": "9 Cm Peacock",
-      "price": 43.7,
-      "image": assets.peacock9cm,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 25,
-      "name": "10 Cm Krishna",
-      "price": 60.8,
-      "image": assets.krishna10cm,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 26,
-      "name": "10 Cm Lakshmi",
-      "price": 60.8,
-      "image": assets.lakshmi9cm,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 27,
-      "name": "500/5 Hitler - 10 C.M.",
-      "price": 60.8,
-      "image": assets.hitler,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 28,
-      "name": "10 cm Peacock",
-      "price": 60.8,
-      "image": assets.peacock9cm,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 29,
-      "name": "10 Cm Hercules Deluxe",
-      "price": 79.8,
-      "image": assets.hercules,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 30,
-      "name": "9 cm Two Sound",
-      "price": 64.6,
-      "image": assets.twosound1,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
-      "color": "from-green-500 to-emerald-500"
-    },
-    {
-      "id": 31,
-      "name": "Two Sound Giant",
-      "price": 87.4,
-      "image": assets.twosoundgaint,
-      "category": "sound-crackers",
-      "brand": "standard",
-      "rating": 4.2,
-      "description": "5 Pcs in one packet",
       "color": "from-green-500 to-emerald-500"
     },
     {
