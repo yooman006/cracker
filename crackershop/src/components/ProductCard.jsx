@@ -18,6 +18,9 @@ const ProductCard = ({ product, cart, addToCart, removeFromCart }) => {
           <Star className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-yellow-400 fill-current" />
           <span className="text-white text-xs">{product.rating}</span>
         </div>
+        <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-red-500 text-white text-xs px-1.5 sm:px-2 py-0.5 rounded">
+          50% OFF
+        </div>
         <div className={`absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3 h-1 sm:h-1.5 bg-gradient-to-r ${product.color} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
       </div>
       <div className="p-2 sm:p-3 md:p-4">
