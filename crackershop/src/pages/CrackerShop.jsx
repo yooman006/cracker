@@ -12,6 +12,7 @@ import CartSidebar from '../components/CartSidebar';
 import Footer from '../components/Footer';
 import AnimatedBackground from '../components/AnimatedBackground';
 import FloatingArrowButton from '../components/FloatingArrowButton';
+import FloatingWhatsApp from '../components/FloatingWhatsApp';
 
 // Import CartContext instead of custom hook
 import { useCart } from '../context/CartContext';
@@ -185,6 +186,12 @@ const CrackerShop = () => {
 
       {/* Floating Arrow Button */}
       <FloatingArrowButton />
+
+      {/* Floating WhatsApp Button */}
+      <FloatingWhatsApp 
+        phoneNumber="+918903623517" 
+        message="Hi! I'm interested in your crackers collection. Can you help me?" 
+      />
     </div>
   );
 };
