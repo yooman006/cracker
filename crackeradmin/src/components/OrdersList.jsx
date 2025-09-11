@@ -1,11 +1,16 @@
 // components/OrdersList.jsx
 import { User, Eye, CheckCircle, Circle } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function OrdersList({ orders, onDeliveryStatusChange, loading }) {
   const [updatingOrders, setUpdatingOrders] = useState(new Set());
   const navigate = useNavigate();
+
+  // Sort orders by date in descending order (newest first)
+  const sortedOrders = useMemo(() => {
+    return [...orders].sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+  }, [orders]);
 
   const handleOrderClick = (order) => {
     // Navigate to order details page
@@ -73,7 +78,7 @@ export default function OrdersList({ orders, onDeliveryStatusChange, loading }) 
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {orders.map((order, index) => (
+              {sortedOrders.map((order, index) => (
                 <tr 
                   key={order._id} 
                   className={`transition-all duration-150 hover:bg-blue-50/50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}
@@ -146,7 +151,7 @@ export default function OrdersList({ orders, onDeliveryStatusChange, loading }) 
 
       {/* Mobile View */}
       <div className="md:hidden space-y-4">
-        {orders.map((order) => (
+        {sortedOrders.map((order) => (
           <div 
             key={order._id} 
             className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-all duration-200"
