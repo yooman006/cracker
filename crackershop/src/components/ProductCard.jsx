@@ -1,9 +1,15 @@
 import React from 'react';
 import { Star, Plus, Minus } from 'lucide-react';
 
-const ProductCard = ({ product, cart, addToCart, removeFromCart }) => {
+const ProductCard = ({ product, cart, addToCart, removeFromCart, discountPercentage = 0.50 }) => {
   const cartItem = cart.find(item => item.id === product.id);
   const isDisabled = cart.length > 0 && cart[0].brand !== product.brand;
+  
+  // Check if product is eligible for discount (not a giftbox)
+  const isEligibleForDiscount = product.category !== 'giftbox';
+  const discountedPrice = isEligibleForDiscount ? 
+    product.price - (product.price * discountPercentage) : 
+    product.price;
 
   return (
     <div className="bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl overflow-hidden shadow-md sm:shadow-lg md:shadow-xl border border-white/20 hover:border-yellow-400/50 transition-all duration-300 transform hover:scale-102 group">
@@ -18,18 +24,41 @@ const ProductCard = ({ product, cart, addToCart, removeFromCart }) => {
           <Star className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-yellow-400 fill-current" />
           <span className="text-white text-xs">{product.rating}</span>
         </div>
-        <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-red-500 text-white text-xs px-1.5 sm:px-2 py-0.5 rounded">
-          50% OFF
-        </div>
+        {/* Conditional discount badge */}
+        {isEligibleForDiscount && (
+          <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-red-500 text-white text-xs px-1.5 sm:px-2 py-0.5 rounded">
+            50% OFF
+          </div>
+        )}
         <div className={`absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3 h-1 sm:h-1.5 bg-gradient-to-r ${product.color} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
       </div>
       <div className="p-2 sm:p-3 md:p-4">
         <h3 className="text-xs sm:text-sm md:text-base font-bold text-white mb-1 line-clamp-1">{product.name}</h3>
         <p className="text-gray-300 text-xs mb-2 sm:mb-3 line-clamp-2">{product.description}</p>
         <div className="flex items-center justify-between">
-          <span className={`text-sm sm:text-base md:text-lg font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}>
-            ₹{Math.round(product.price)}
-          </span>
+          <div className="flex flex-col">
+            {isEligibleForDiscount ? (
+              // Show discounted price with original price crossed out
+              <div className="flex items-center space-x-1">
+                <span className={`text-sm sm:text-base md:text-lg font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}>
+                  ₹{Math.round(discountedPrice)}
+                </span>
+                <span className="text-gray-400 text-xs line-through">
+                  ₹{Math.round(product.price)}
+                </span>
+              </div>
+            ) : (
+              // Show regular price for gift boxes
+              <>
+                <span className={`text-sm sm:text-base md:text-lg font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}>
+                  ₹{Math.round(product.price)}
+                </span>
+                <span className="text-gray-400 text-xs">
+                  Special Item - No Discount
+                </span>
+              </>
+            )}
+          </div>
 
           {cartItem ? (
             // Show quantity selector if item is in cart

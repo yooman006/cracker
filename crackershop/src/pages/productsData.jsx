@@ -1206,7 +1206,7 @@ export const products = [
     {
       "id": 110,
       "name": "Prize (16 Item)",
-      "price": 872.1,
+      "price": 459,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1217,7 +1217,7 @@ export const products = [
     {
       "id": 111,
       "name": "God’s Gift ( 18 Item)",
-      "price": 1166.6,
+      "price": 614,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1228,7 +1228,7 @@ export const products = [
     {
       "id": 112,
       "name": "Super (23 Item)",
-      "price": 1252.1,
+      "price": 659,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1239,7 +1239,7 @@ export const products = [
     {
       "id": 113,
       "name": "Great (28 Item)",
-      "price": 1548.5,
+      "price": 815,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1250,7 +1250,7 @@ export const products = [
     {
       "id": 114,
       "name": "Wonderful (31 Item)",
-      "price": 1833.5,
+      "price": 965,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1261,7 +1261,7 @@ export const products = [
     {
       "id": 115,
       "name": "Fantastic ( 34 Item)",
-      "price": 2091.9,
+      "price": 1101,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1272,7 +1272,7 @@ export const products = [
     {
       "id": 116,
       "name": "Khushi (36 Item)",
-      "price": 2550.0,
+      "price": 1342,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1283,7 +1283,7 @@ export const products = [
     {
       "id": 117,
       "name": "Jubilee (38 item)",
-      "price": 2751.2,
+      "price": 1448,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1294,7 +1294,7 @@ export const products = [
     {
       "id": 118,
       "name": "Diamond (43 Item)",
-      "price": 3186.3,
+      "price": 1677,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1305,7 +1305,7 @@ export const products = [
     {
       "id": 119,
       "name": "Titan (46 Item)",
-      "price": 3769.6,
+      "price": 1984,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",
@@ -1316,7 +1316,7 @@ export const products = [
     {
       "id": 120,
       "name": "New Paradise (50 Items)",
-      "price": 6726.0,
+      "price": 3540,
       "image": assets.stdgift,
       "category": "giftbox",
       "brand": "standard",

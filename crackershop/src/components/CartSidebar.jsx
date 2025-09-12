@@ -15,20 +15,45 @@ const CartSidebar = ({ discountPercentage = 0.50 }) => {
     getTotalPrice 
   } = useCart();
 
-  // Calculate totals with discount
+  // Calculate totals with conditional discount
   const calculateTotals = () => {
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const discountAmount = subtotal * discountPercentage;
+    let subtotal = 0;
+    let discountAmount = 0;
+    let itemsWithDiscount = 0;
+    let itemsWithoutDiscount = 0;
+
+    cart.forEach(item => {
+      const itemTotal = item.price * item.quantity;
+      subtotal += itemTotal;
+
+      // Apply discount only if item is not a giftbox
+      if (item.category !== 'giftbox') {
+        discountAmount += itemTotal * discountPercentage;
+        itemsWithDiscount++;
+      } else {
+        itemsWithoutDiscount++;
+      }
+    });
+
     const total = subtotal - discountAmount;
     
-    return { subtotal, discountAmount, total };
+    return { 
+      subtotal, 
+      discountAmount, 
+      total,
+      itemsWithDiscount,
+      itemsWithoutDiscount
+    };
   };
 
   const totals = calculateTotals();
 
   // Calculate discounted price for individual items
-  const getDiscountedPrice = (originalPrice) => {
-    return originalPrice - (originalPrice * discountPercentage);
+  const getDiscountedPrice = (item) => {
+    if (item.category === 'giftbox') {
+      return item.price; // No discount for giftboxes
+    }
+    return item.price - (item.price * discountPercentage);
   };
 
   const handleCheckout = () => {
@@ -67,12 +92,14 @@ const CartSidebar = ({ discountPercentage = 0.50 }) => {
             </button>
           </div>
 
-          {/* Discount Banner */}
-          <div className="bg-emerald-500/20 border border-emerald-400/30 rounded-lg p-2 mb-4">
-            <p className="text-emerald-300 text-xs xs:text-sm font-medium text-center">
-              🎉 {Math.round(discountPercentage * 100)}% OFF on all items!
-            </p>
-          </div>
+          {/* Discount Banner - only show if there are discountable items */}
+          {totals.itemsWithDiscount > 0 && (
+            <div className="bg-emerald-500/20 border border-emerald-400/30 rounded-lg p-2 mb-4">
+              <p className="text-emerald-300 text-xs xs:text-sm font-medium text-center">
+                🎉 {Math.round(discountPercentage * 100)}% OFF on eligible items!
+              </p>
+            </div>
+          )}
 
           <div className="flex-1 overflow-y-auto">
             {cart.length === 0 ? (
@@ -91,8 +118,9 @@ const CartSidebar = ({ discountPercentage = 0.50 }) => {
             ) : (
               <div className="space-y-3 xs:space-y-4">
                 {cart.map(item => {
-                  const discountedPrice = getDiscountedPrice(item.price);
+                  const discountedPrice = getDiscountedPrice(item);
                   const originalPrice = item.price;
+                  const hasDiscount = item.category !== 'giftbox';
                   
                   return (
                     <div key={item.id} className="bg-white/10 rounded-lg p-3 xs:p-4 flex items-center space-x-3 xs:space-x-4">
@@ -100,14 +128,28 @@ const CartSidebar = ({ discountPercentage = 0.50 }) => {
                       <div className="flex-1">
                         <h4 className="text-white font-medium text-xs xs:text-sm sm:text-base">{item.name}</h4>
                         <div className="flex items-center space-x-2">
-                          {/* Discounted Price */}
-                          <p className="text-emerald-400 text-xs xs:text-sm sm:text-base font-bold">
-                            ₹{Math.round(discountedPrice)}
-                          </p>
-                          {/* Original Price with strikethrough */}
-                          <p className="text-gray-500 text-[10px] xs:text-xs line-through">
-                            ₹{Math.round(originalPrice)}
-                          </p>
+                          {hasDiscount ? (
+                            <>
+                              {/* Discounted Price */}
+                              <p className="text-emerald-400 text-xs xs:text-sm sm:text-base font-bold">
+                                ₹{Math.round(discountedPrice)}
+                              </p>
+                              {/* Original Price with strikethrough */}
+                              <p className="text-gray-500 text-[10px] xs:text-xs line-through">
+                                ₹{Math.round(originalPrice)}
+                              </p>
+                            </>
+                          ) : (
+                            <>
+                              {/* Regular price for gift boxes */}
+                              <p className="text-emerald-400 text-xs xs:text-sm sm:text-base font-bold">
+                                ₹{Math.round(originalPrice)}
+                              </p>
+                              <p className="text-gray-400 text-[10px] xs:text-xs">
+                                Special Item - No Discount
+                              </p>
+                            </>
+                          )}
                         </div>
                         {/* Individual item total */}
                         <p className="text-emerald-300 text-[10px] xs:text-xs">
@@ -148,10 +190,12 @@ const CartSidebar = ({ discountPercentage = 0.50 }) => {
                   <span className="text-gray-300">Subtotal:</span>
                   <span className="text-gray-300">₹{Math.round(totals.subtotal)}</span>
                 </div>
-                <div className="flex justify-between items-center text-sm">
-                  <span className="text-emerald-400">Discount ({Math.round(discountPercentage * 100)}%):</span>
-                  <span className="text-emerald-400">-₹{Math.round(totals.discountAmount)}</span>
-                </div>
+                {totals.discountAmount > 0 && (
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-emerald-400">Discount ({Math.round(discountPercentage * 100)}%):</span>
+                    <span className="text-emerald-400">-₹{Math.round(totals.discountAmount)}</span>
+                  </div>
+                )}
                 <div className="border-t border-white/20 pt-2">
                   <div className="flex justify-between items-center">
                     <span className="text-white text-sm xs:text-base sm:text-lg font-semibold">Total:</span>
@@ -179,12 +223,14 @@ const CartSidebar = ({ discountPercentage = 0.50 }) => {
                 </button>
               </div>
 
-              {/* Savings highlight */}
-              <div className="mt-3 text-center">
-                <p className="text-emerald-300 text-xs">
-                  🎉 You're saving ₹{Math.round(totals.discountAmount)} on this order!
-                </p>
-              </div>
+              {/* Savings highlight - only show if there are actual savings */}
+              {totals.discountAmount > 0 && (
+                <div className="mt-3 text-center">
+                  <p className="text-emerald-300 text-xs">
+                    🎉 You're saving ₹{Math.round(totals.discountAmount)} on this order!
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>
