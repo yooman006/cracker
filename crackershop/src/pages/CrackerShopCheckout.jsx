@@ -6,7 +6,7 @@ import { CustomerForm } from '../components/CustomerForm';
 import { SuccessModal } from '../components/SuccessModel';
 import { useCheckoutForm } from '../hooks/useCheckoutForm';
 import { useOrderCalculations } from '../hooks/useOrderCalculations';
-import { generateReceipt } from '../utils/receiptGenerator';
+import { generateReceipt, sendReceiptEmail } from '../utils/receiptGenerator';
 import { submitOrder } from '../services/orderService';
 import { useCart } from '../context/CartContext';
 
@@ -17,6 +17,7 @@ export default function CrackerShopCheckout() {
   const [showAllItems, setShowAllItems] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [emailStatus, setEmailStatus] = useState(''); // Track email sending status
 
   const { formData, errors, handleInputChange, validate } = useCheckoutForm();
   const calculations = useOrderCalculations(cartItems);
@@ -27,6 +28,7 @@ export default function CrackerShopCheckout() {
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setEmailStatus('Processing order...');
 
     try {
       const orderData = {
@@ -35,6 +37,7 @@ export default function CrackerShopCheckout() {
           productId: item.id.toString(),
           name: item.name,
           brand: item.brand,
+          category: item.category, // Include category for gift box detection
           price: item.price,
           quantity: item.quantity
         })),
@@ -47,17 +50,35 @@ export default function CrackerShopCheckout() {
         },
       };
 
+      // Submit order to backend
       const responseData = await submitOrder(orderData);
-      setShowSuccess(true);
-
-      generateReceipt({
+      
+      const completeOrderData = {
         ...orderData,
         _id: responseData.order._id,
         orderDate: responseData.order.orderDate
-      });
+      };
+
+      // Generate PDF (downloads automatically) and get base64 for email
+      setEmailStatus('Generating receipt...');
+      const pdfBase64 = generateReceipt(completeOrderData);
+
+      // Send receipt via email
+      setEmailStatus('Sending receipt to your email...');
+      try {
+        await sendReceiptEmail(completeOrderData, pdfBase64);
+        setEmailStatus('Receipt sent successfully to your email!');
+      } catch (emailError) {
+        console.error('Email sending failed:', emailError);
+        setEmailStatus('Order completed! Receipt downloaded, but email sending failed.');
+        // Don't throw error here - order was successful, just email failed
+      }
+
+      setShowSuccess(true);
 
     } catch (error) {
       console.error('Order submission error:', error);
+      setEmailStatus('');
       alert(`Error: ${error.message}`);
     } finally {
       setIsSubmitting(false);
@@ -66,6 +87,7 @@ export default function CrackerShopCheckout() {
 
   const handleSuccessClose = () => {
     setShowSuccess(false);
+    setEmailStatus('');
     // Clear the cart after successful order
     clearCart();
     navigate('/');
@@ -128,6 +150,13 @@ export default function CrackerShopCheckout() {
             Continue Shopping
           </button>
         </div>
+
+        {/* Email Status Message */}
+        {emailStatus && (
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <p className="text-blue-800 text-center">{emailStatus}</p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           <div className="grid lg:grid-cols-2 gap-8">

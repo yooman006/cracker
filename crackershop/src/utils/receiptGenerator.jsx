@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 
+// Generate PDF and return both download and base64 for email
 export const generateReceipt = (orderData) => {
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const itemsPerPage = 15;
@@ -67,7 +68,7 @@ export const generateReceipt = (orderData) => {
     doc.rect(20, startY + 5, 170, 8, 'F');
 
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(9); // Slightly smaller font for headers to fit all columns
+    doc.setFontSize(9);
     doc.text('S.No', 25, startY + 10);
     doc.text('Item', 40, startY + 10);
     doc.text('Orig. Price', 110, startY + 10);
@@ -82,13 +83,11 @@ export const generateReceipt = (orderData) => {
       doc.rect(20, yPos - 3, 170, 6, 'F');
 
       doc.setTextColor(0, 0, 0);
-      doc.setFontSize(9); // Smaller font for content to fit all columns
+      doc.setFontSize(9);
       const serialNumber = (pageNumber - 1) * itemsPerPage + index + 1;
 
-      // FIXED: Calculate prices correctly from the data your checkout sends
-      const originalPrice = item.price; // This is the original price from your checkout
+      const originalPrice = item.price;
       
-      // Check if this is a Gift Box item - improved detection
       const isGiftBox = item.category === 'giftbox' || 
                        (item.name && (
                          item.name.includes('Items') || 
@@ -98,39 +97,30 @@ export const generateReceipt = (orderData) => {
                        )) ||
                        (item.brand && item.brand.includes('Gift Box'));
 
-      // Calculate discounted price
       const discountedPrice = isGiftBox ? originalPrice : (originalPrice - (originalPrice * discountPercentage));
 
       doc.text(serialNumber.toString(), 25, yPos);
       
-      // Item name with adjusted width for new columns
       const itemNameLines = doc.splitTextToSize(item.name, 60);
       const linesNeeded = itemNameLines.length;
       doc.text(itemNameLines, 40, yPos);
       
-      // Original price
       if (isGiftBox) {
-        // For Gift Box, show original price in normal color (no strikethrough effect needed)
         doc.setTextColor(0, 0, 0);
         doc.text(`${Math.round(originalPrice)}`, 110, yPos);
       } else {
-        // For regular items, show original price in gray (strikethrough effect)
         doc.setTextColor(128, 128, 128);
         doc.text(`${Math.round(originalPrice)}`, 110, yPos);
       }
       
-      // Discounted price
       if (isGiftBox) {
-        // For Gift Box, show same price in normal color
         doc.setTextColor(0, 0, 0);
         doc.text(`${Math.round(discountedPrice)}`, 135, yPos);
       } else {
-        // For regular items, show discounted price in green
         doc.setTextColor(16, 185, 129);
         doc.text(`${Math.round(discountedPrice)}`, 135, yPos);
       }
       
-      // Quantity and total (black color)
       doc.setTextColor(0, 0, 0);
       doc.text(item.quantity.toString(), 160, yPos);
       doc.text(`${Math.round(discountedPrice * item.quantity)}`, 180, yPos);
@@ -220,5 +210,38 @@ export const generateReceipt = (orderData) => {
     }
   }
 
+  // Download the PDF automatically
   doc.save(`order_receipt_${orderData._id}.pdf`);
+
+  // Return base64 PDF data for email
+  return doc.output('datauristring').split(',')[1]; // Remove data:application/pdf;filename=generated.pdf;base64, prefix
+};
+
+// Service function to send receipt via email - Updated API endpoint
+export const sendReceiptEmail = async (orderData, pdfBase64) => {
+  try {
+    const response = await fetch('http://localhost:5000/api/orders/send-receipt-email', {  // Updated endpoint
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        customerEmail: orderData.customer.email,
+        customerName: `${orderData.customer.firstName} ${orderData.customer.lastName || ''}`,
+        orderId: orderData._id,
+        pdfBase64: pdfBase64,
+        orderData: orderData
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to send email');
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Email sending failed:', error);
+    throw error;
+  }
 };
