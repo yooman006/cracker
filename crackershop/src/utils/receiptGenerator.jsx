@@ -220,7 +220,7 @@ export const generateReceipt = (orderData) => {
 // Service function to send receipt via email - Updated API endpoint
 export const sendReceiptEmail = async (orderData, pdfBase64) => {
   try {
-    const response = await fetch('http://localhost:5000/api/orders/send-receipt-email', {  // Updated endpoint
+    const response = await fetch('https://sivakasi-crackers-shop-backend.azurewebsites.net/api/orders/send-receipt-email', {  // Updated endpoint
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
